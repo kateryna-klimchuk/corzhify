@@ -1,5 +1,11 @@
+import { MetaFunction } from "@remix-run/node";
 import { AuthorizedLayout } from "~/components/AuthorizedLayout/AuthorizedLayout";
-
+export const meta: MetaFunction = () => {
+  return [
+    { title: "Corzhify - Overview" },
+    { name: "description", content: "Corzhify - Overview" },
+  ];
+};
 export default function OverviewPage() {
   return (
     <AuthorizedLayout.Page>

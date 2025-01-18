@@ -1,5 +1,4 @@
 import type { MetaFunction } from "@remix-run/node";
-import { Outlet } from "@remix-run/react";
 import { AuthorizedLayout } from "~/components/AuthorizedLayout/AuthorizedLayout";
 
 export const meta: MetaFunction = () => {
