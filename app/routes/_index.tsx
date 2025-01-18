@@ -1,4 +1,6 @@
 import type { MetaFunction } from "@remix-run/node";
+import { Outlet } from "@remix-run/react";
+import { AuthorizedLayout } from "~/components/AuthorizedLayout/AuthorizedLayout";
 
 export const meta: MetaFunction = () => {
   return [
@@ -9,8 +11,10 @@ export const meta: MetaFunction = () => {
 
 export default function Index() {
   return (
-    <div className="text-orange-500">
-      <h1>Welcome to Corzhify</h1>
-    </div>
+    <AuthorizedLayout.Page>
+      <div className="px-4">
+        <h2>Welcome to Corzhify family!</h2>
+      </div>
+    </AuthorizedLayout.Page>
   );
 }
