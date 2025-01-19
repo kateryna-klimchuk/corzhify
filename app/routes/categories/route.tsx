@@ -1,5 +1,12 @@
 import { MetaFunction, LoaderFunctionArgs, json } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { Link, useLoaderData } from "@remix-run/react";
+import {
+  ReactElement,
+  JSXElementConstructor,
+  ReactNode,
+  ReactPortal,
+  Key,
+} from "react";
 
 import { AuthorizedLayout } from "~/components/AuthorizedLayout/AuthorizedLayout";
 export const meta: MetaFunction = () => {
@@ -19,20 +26,31 @@ export const loader = async (loaderArguments: LoaderFunctionArgs) => {
   return json(categories);
 };
 export default function OverviewPage() {
-  const data = useLoaderData<typeof loader>();
+  const categories: string[] = useLoaderData<typeof loader>();
 
-  console.log("data", data);
+  console.log("data", categories);
 
   return (
     <AuthorizedLayout.Page>
       <div>
-        <h1>Welcome to the Corzhify Overview</h1>
+        <h1>Welcome to the Corzhify Categories</h1>
         <p>
           Discover the best products, latest trends, and everything Corzhify has
           to offer. Start browsing!
         </p>
         <div>
           <h2>Featured Products</h2>
+          <ul>
+            {categories.map((category, index) => {
+              console.log("category", category);
+
+              return (
+                <li key={index}>
+                  <Link to={"/products"}>{category}</Link>
+                </li>
+              );
+            })}
+          </ul>
         </div>
       </div>
     </AuthorizedLayout.Page>

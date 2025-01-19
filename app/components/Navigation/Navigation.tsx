@@ -21,11 +21,12 @@ export const Navigation: React.FunctionComponent<NavigationInterface> = ({
     <div className="p-1 px-2 flex gap-2 justify-start items-center rounded">
       <nav>
         <ul className="flex gap-3 px-2 py-1">
-          {items.map((item) => {
+          {items.map((item, index) => {
             return (
               <>
                 {item.isActive ? (
                   <NavLink
+                    key={index}
                     className="bg-orange-200 px-2 border rounded cursor-pointer"
                     to={item.href}
                   >
@@ -33,6 +34,7 @@ export const Navigation: React.FunctionComponent<NavigationInterface> = ({
                   </NavLink>
                 ) : (
                   <NavLink
+                    key={index}
                     className="px-2 rounded border hover:bg-orange-200 cursor-pointer transition-all"
                     to={item.href}
                   >
