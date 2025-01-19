@@ -16,6 +16,16 @@ export const meta: MetaFunction = () => {
   ];
 };
 
+export interface ProductInterface {
+  id: number;
+  title: string;
+  image: string;
+  price: number;
+  category: string;
+  rating: { rate: number; count: number };
+  description: string;
+}
+
 export const loader = async (loaderArguments: LoaderFunctionArgs) => {
   const products = await fetch("https://fakestoreapi.com/products").then(
     (res) => res.json()
@@ -23,7 +33,7 @@ export const loader = async (loaderArguments: LoaderFunctionArgs) => {
   return json(products);
 };
 export default function OverviewPage() {
-  const products: any = useLoaderData<typeof loader>();
+  const products: ProductInterface[] = useLoaderData<typeof loader>();
 
   console.log("data", products);
 
@@ -31,41 +41,30 @@ export default function OverviewPage() {
     <AuthorizedLayout.Page>
       <div>
         <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {products.map(
-            (
-              product: {
-                id: number;
-                title: string | undefined;
-                image: string | undefined;
-              },
-              index: Key
-            ) => {
-              console.log("product ==>", product);
+          {products.map((product, index: Key) => {
+            console.log("product ==>", product);
 
-              return (
-                <li
-                  key={index}
-                  className="border rounded border-gray-300 p-4 flex flex-col items-center"
+            return (
+              <li
+                key={index}
+                className="border rounded border-gray-300 p-4 flex flex-col items-center"
+              >
+                <Link
+                  to={`/products/${product.id}`}
+                  className="block w-full text-center"
                 >
-                  <Link
-                    to={`/products/${product.id}`}
-                    className="block w-full text-center"
-                  >
-                    <div className="w-full h-40 flex items-center justify-center mb-4">
-                      <img
-                        src={product.image}
-                        alt={product.title}
-                        className="h-full object-contain"
-                      />
-                    </div>
-                    <h3 className="text-lg font-semibold pb-4">
-                      {product.title}
-                    </h3>
-                  </Link>
-                </li>
-              );
-            }
-          )}
+                  <div className="w-full h-40 flex items-center justify-center mb-4">
+                    <img
+                      src={product.image}
+                      alt={product.title}
+                      className="h-full object-contain"
+                    />
+                  </div>
+                  <h3 className="text-lg font-semibold">{product.title}</h3>
+                </Link>
+              </li>
+            );
+          })}
         </ul>
       </div>
     </AuthorizedLayout.Page>
