@@ -1,3 +1,4 @@
+import { ArrowLeftIcon } from "./Icons/ArrowLeftIcon";
 import { DownArrowIcon } from "./Icons/DownArrowIcon";
 import { LoginIcon } from "./Icons/LoginIcon";
 import { LogOutIcon } from "./Icons/LogoutIcon";
@@ -8,4 +9,5 @@ export const Icon = {
   Search: SearchIcon,
   Login: LoginIcon,
   LogOut: LogOutIcon,
+  ArrowLeft: ArrowLeftIcon,
 };

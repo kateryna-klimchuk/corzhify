@@ -5,9 +5,7 @@ import { ProductInterface } from "./products._index";
 import { ProductOverviewRow } from "~/components/ProductOverview/ProductOverviewRow/ProductOverviewRow";
 
 export const loader: LoaderFunction = async ({ params }) => {
-  console.log("params --->", params);
-
-  const productId = params.id; // Access the dynamic param from the URL
+  const productId = params.id;
   const product = await fetch(
     `https://fakestoreapi.com/products/${productId}`
   ).then((res) => res.json());
@@ -21,8 +19,6 @@ export const loader: LoaderFunction = async ({ params }) => {
 
 export default function ProductDetail() {
   const product: ProductInterface = useLoaderData();
-  console.log("product ===>", product);
-
   return (
     <AuthorizedLayout.Page>
       <div className="grid grid-cols-2 gap-4 bg-white border rounded border-gray-200">

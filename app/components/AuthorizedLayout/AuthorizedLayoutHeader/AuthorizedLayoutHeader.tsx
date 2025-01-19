@@ -21,18 +21,19 @@ export const AuthorizedLayoutHeader: React.FunctionComponent<
     );
   };
   return (
-    <header className="bg-orange-300 text-xl flex justify-start items-center px-6">
+    <header className="bg-orange-300 text-xl flex flex-wrap items-center px-4 py-3 sm:px-6">
       <NavLink
         to="/"
-        className="text-4xl font-bold items-center flex text-slate-700 pr-4"
+        className="font-bold items-center flex text-slate-700 pr-4"
       >
         <span className="bg-gradient-to-r from-pink-500 to-yellow-500 text-transparent bg-clip-text text-6xl font-extrabold">
           C
         </span>
         <p>orzhify</p>
       </NavLink>
-
+      {/* <div className="flex-1"> */}
       <Navigation items={navigationItems} />
+      {/* </div> */}
       {children}
       <div className="flex items-center gap-3 ml-auto">
         <Button label={<LoginButton />} color="transparent" />
