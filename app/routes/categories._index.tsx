@@ -1,18 +1,12 @@
 import { MetaFunction, LoaderFunctionArgs, json } from "@remix-run/node";
 import { Link, useLoaderData } from "@remix-run/react";
-import {
-  ReactElement,
-  JSXElementConstructor,
-  ReactNode,
-  ReactPortal,
-  Key,
-} from "react";
 
 import { AuthorizedLayout } from "~/components/AuthorizedLayout/AuthorizedLayout";
+import { ProductCard } from "~/components/Product/ProductCard/ProductCard";
 export const meta: MetaFunction = () => {
   return [
-    { title: "Corzhify - Overview" },
-    { name: "description", content: "Corzhify - Overview" },
+    { title: "Corzhify - Categories" },
+    { name: "description", content: "Corzhify - Categories" },
   ];
 };
 
@@ -21,7 +15,6 @@ export const loader = async (loaderArguments: LoaderFunctionArgs) => {
     "https://fakestoreapi.com/products/categories"
   ).then((res) => res.json());
   console.log("categories ===>", await categories);
-  console.log("loaderArguments", loaderArguments);
 
   return json(categories);
 };
@@ -39,15 +32,19 @@ export default function OverviewPage() {
           to offer. Start browsing!
         </p>
         <div>
-          <h2>Featured Products</h2>
-          <ul>
+          <h2>Choose a category</h2>
+          <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {categories.map((category, index) => {
-              console.log("category", category);
-
               return (
-                <li key={index}>
-                  <Link to={"/products"}>{category}</Link>
-                </li>
+                <ProductCard
+                  key={index}
+                  product={{
+                    id: category,
+                    title: category,
+                    image: undefined,
+                    href: `/categories/${category}`,
+                  }}
+                />
               );
             })}
           </ul>

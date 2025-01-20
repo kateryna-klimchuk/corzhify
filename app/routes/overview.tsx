@@ -31,9 +31,6 @@ export default function OverviewPage() {
           Discover the best products, latest trends, and everything Corzhify has
           to offer. Start browsing!
         </p>
-        <div>
-          <h2>Featured Products</h2>
-        </div>
       </div>
     </AuthorizedLayout.Page>
   );
