@@ -3,14 +3,16 @@ import { AuthorizedLayoutRoot } from "../AuthorizedLayoutRoot/AuthorizedLayoutRo
 import { AuthorizedLayoutHeader } from "../AuthorizedLayoutHeader/AuthorizedLayoutHeader";
 import { AuthorizedLayoutBody } from "../AuthorizedLayoutBody/AuthorizedLayoutBody";
 import { AuthorizedLayoutFooter } from "../AuthorizedLayoutFooter/AuthorizedLayoutFooter";
+import { Icon } from "~/components/Icon/Icon";
 
 interface AuthorizedPageLayoutInterface {
   children: React.ReactNode;
   activePage: string;
+  backButton?: { onClick: () => void };
 }
 export const AuthorizedPageLayout: React.FunctionComponent<
   AuthorizedPageLayoutInterface
-> = ({ children, activePage }) => {
+> = ({ children, activePage, backButton }) => {
   const navigationItems = [
     {
       label: "Products",
@@ -20,14 +22,17 @@ export const AuthorizedPageLayout: React.FunctionComponent<
       label: "Categories",
       href: "/categories",
     },
-    {
-      label: "Super deals",
-      href: "/super-deals",
-    },
-    {
-      label: "Contacts",
-      href: "/contacts",
-    },
+
+    // TODO: Add more tabs
+
+    // {
+    //   label: "Super deals",
+    //   href: "/super-deals",
+    // },
+    // {
+    //   label: "Contacts",
+    //   href: "/contacts",
+    // },
   ];
   return (
     <AuthorizedLayoutRoot>
@@ -35,18 +40,18 @@ export const AuthorizedPageLayout: React.FunctionComponent<
         navigationItems={navigationItems}
         activePage={activePage}
       ></AuthorizedLayoutHeader>
-
-      {/* TODO Implement 'Back' button */}
-
-      {/* <button
-        type="button"
-        className="default-focus-ring mr-6 rounded disabled:cursor-not-allowed"
-      >
-        <div className="flex">
-          <Icon.ArrowLeft className="h-6 w-6 text-gray-800" />
-          <p>Back</p>
+      {backButton && (
+        <div className="border-b py-2 px-4">
+          <button
+            type="button"
+            className="default-focus-ring rounded disabled:cursor-not-allowed flex border rounder pl-2 py-1 pr-3 hover:bg-white transition-all"
+            onClick={backButton.onClick}
+          >
+            <Icon.ArrowLeft className="h-6 w-6 text-gray-800" />
+            <p>Back</p>
+          </button>
         </div>
-      </button> */}
+      )}
       <AuthorizedLayoutBody>{children}</AuthorizedLayoutBody>
       <AuthorizedLayoutFooter />
     </AuthorizedLayoutRoot>

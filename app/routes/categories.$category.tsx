@@ -3,6 +3,7 @@ import {
   MetaFunction,
   useLoaderData,
   useLocation,
+  useNavigate,
 } from "@remix-run/react";
 import { ProductInterface } from "../components/Product/Interfaces/ProductInterface";
 import { AuthorizedLayout } from "../components/AuthorizedLayout/AuthorizedLayout";
@@ -15,8 +16,6 @@ export const meta: MetaFunction = () => {
   ];
 };
 export const loader = async ({ params }: LoaderFunctionArgs) => {
-  console.log("params", params);
-
   const category = params.category;
   const categoryProducts = await fetch(
     `https://fakestoreapi.com/products/category/${category}`
@@ -31,9 +30,13 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
 export default function CategoryPage() {
   const categoryProducts: ProductInterface[] = useLoaderData();
   const location = useLocation();
+  const navigate = useNavigate();
 
   return (
-    <AuthorizedLayout.Page activePage={location.pathname}>
+    <AuthorizedLayout.Page
+      activePage={location.pathname}
+      backButton={{ onClick: () => navigate(-1) }}
+    >
       <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {categoryProducts.map((product, index) => {
           return (

@@ -1,4 +1,4 @@
-import { useLoaderData, useLocation } from "@remix-run/react";
+import { useLoaderData, useLocation, useNavigate } from "@remix-run/react";
 import { LoaderFunction, MetaFunction } from "@remix-run/node";
 import { AuthorizedLayout } from "~/components/AuthorizedLayout/AuthorizedLayout";
 import { ProductInterface } from "~/components/Product/Interfaces/ProductInterface";
@@ -26,9 +26,13 @@ export const loader: LoaderFunction = async ({ params }) => {
 export default function ProductDetail() {
   const product: ProductInterface = useLoaderData();
   const location = useLocation();
+  const navigate = useNavigate();
 
   return (
-    <AuthorizedLayout.Page activePage={location.pathname}>
+    <AuthorizedLayout.Page
+      activePage={location.pathname}
+      backButton={{ onClick: () => navigate(-1) }}
+    >
       <ProductOverview product={product} />
     </AuthorizedLayout.Page>
   );

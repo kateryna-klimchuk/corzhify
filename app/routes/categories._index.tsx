@@ -1,5 +1,5 @@
-import { MetaFunction, LoaderFunctionArgs, json } from "@remix-run/node";
-import { Link, useLoaderData, useLocation } from "@remix-run/react";
+import { MetaFunction, LoaderFunctionArgs } from "@remix-run/node";
+import { useLoaderData, useLocation, useNavigate } from "@remix-run/react";
 
 import { AuthorizedLayout } from "~/components/AuthorizedLayout/AuthorizedLayout";
 import { ProductCard } from "~/components/Product/ProductCard/ProductCard";
@@ -14,17 +14,20 @@ export const loader = async (loaderArguments: LoaderFunctionArgs) => {
   const categories = await fetch(
     "https://fakestoreapi.com/products/categories"
   ).then((res) => res.json());
-  console.log("categories ===>", await categories);
 
-  return json(categories);
+  return categories;
 };
 export default function OverviewPage() {
   const categories: string[] = useLoaderData<typeof loader>();
 
   const location = useLocation();
+  const navigate = useNavigate();
 
   return (
-    <AuthorizedLayout.Page activePage={location.pathname}>
+    <AuthorizedLayout.Page
+      activePage={location.pathname}
+      backButton={{ onClick: () => navigate(-1) }}
+    >
       <div>
         <h1>Welcome to the Corzhify Categories</h1>
         <p>

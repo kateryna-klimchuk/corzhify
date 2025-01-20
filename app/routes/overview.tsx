@@ -1,6 +1,4 @@
 import { MetaFunction } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
-
 import { AuthorizedLayout } from "~/components/AuthorizedLayout/AuthorizedLayout";
 export const meta: MetaFunction = () => {
   return [
@@ -9,12 +7,10 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-export const loader = async () => {
-  return null;
-};
+// export const loader = async () => {
+//   return null;
+// };
 export default function OverviewPage() {
-  const data = useLoaderData<typeof loader>();
-
   return (
     <AuthorizedLayout.Page activePage={""}>
       <div>
