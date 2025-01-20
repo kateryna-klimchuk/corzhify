@@ -1,4 +1,4 @@
-import { MetaFunction, LoaderFunctionArgs, json } from "@remix-run/node";
+import { MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 
 import { AuthorizedLayout } from "~/components/AuthorizedLayout/AuthorizedLayout";
@@ -9,22 +9,14 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-export const loader = async (loaderArguments: LoaderFunctionArgs) => {
-  const categories = await fetch(
-    "https://fakestoreapi.com/products/categories"
-  ).then((res) => res.json());
-  console.log("categories ===>", await categories);
-  console.log("loaderArguments", loaderArguments);
-
-  return json(categories);
+export const loader = async () => {
+  return null;
 };
 export default function OverviewPage() {
   const data = useLoaderData<typeof loader>();
 
-  console.log("data", data);
-
   return (
-    <AuthorizedLayout.Page>
+    <AuthorizedLayout.Page activePage={""}>
       <div>
         <h1>Welcome to the Corzhify Overview</h1>
         <p>

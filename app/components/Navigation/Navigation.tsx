@@ -4,10 +4,10 @@ import React from "react";
 export interface NavigationItemInterface {
   label: string;
   href: string;
-  isActive?: boolean;
 }
 export interface NavigationInterface {
   items: NavigationItemInterface[];
+  activePage: string;
   LinkComponent?: React.ElementType<{
     to: string;
     className?: string;
@@ -16,14 +16,16 @@ export interface NavigationInterface {
 }
 export const Navigation: React.FunctionComponent<NavigationInterface> = ({
   items,
+  activePage,
 }) => {
   return (
     <nav className="p-1 flex flex-col gap-2 sm:flex-row sm:items-center rounded">
       <ul className="flex flex-col gap-2 sm:flex-row sm:gap-3">
         {items.map((item, index) => {
+          const isActive = activePage.startsWith(item.href);
           return (
             <>
-              {item.isActive ? (
+              {isActive ? (
                 <NavLink
                   key={index}
                   className="bg-orange-200 px-2 border rounded cursor-pointer"

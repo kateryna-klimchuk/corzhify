@@ -1,5 +1,5 @@
 import { MetaFunction, LoaderFunctionArgs, json } from "@remix-run/node";
-import { Link, useLoaderData } from "@remix-run/react";
+import { Link, useLoaderData, useLocation } from "@remix-run/react";
 
 import { AuthorizedLayout } from "~/components/AuthorizedLayout/AuthorizedLayout";
 import { ProductCard } from "~/components/Product/ProductCard/ProductCard";
@@ -21,10 +21,10 @@ export const loader = async (loaderArguments: LoaderFunctionArgs) => {
 export default function OverviewPage() {
   const categories: string[] = useLoaderData<typeof loader>();
 
-  console.log("data", categories);
+  const location = useLocation();
 
   return (
-    <AuthorizedLayout.Page>
+    <AuthorizedLayout.Page activePage={location.pathname}>
       <div>
         <h1>Welcome to the Corzhify Categories</h1>
         <p>

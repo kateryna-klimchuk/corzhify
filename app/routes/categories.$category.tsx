@@ -1,4 +1,9 @@
-import { Link, MetaFunction, useLoaderData } from "@remix-run/react";
+import {
+  Link,
+  MetaFunction,
+  useLoaderData,
+  useLocation,
+} from "@remix-run/react";
 import { ProductInterface } from "../components/Product/Interfaces/ProductInterface";
 import { AuthorizedLayout } from "../components/AuthorizedLayout/AuthorizedLayout";
 import { LoaderFunctionArgs } from "@remix-run/node";
@@ -25,9 +30,10 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
 
 export default function CategoryPage() {
   const categoryProducts: ProductInterface[] = useLoaderData();
+  const location = useLocation();
 
   return (
-    <AuthorizedLayout.Page>
+    <AuthorizedLayout.Page activePage={location.pathname}>
       <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {categoryProducts.map((product, index) => {
           return (

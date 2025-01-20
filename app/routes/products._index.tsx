@@ -1,5 +1,5 @@
 import { MetaFunction, LoaderFunctionArgs, json } from "@remix-run/node";
-import { Link, useLoaderData } from "@remix-run/react";
+import { useLoaderData, useLocation } from "@remix-run/react";
 import { AuthorizedLayout } from "~/components/AuthorizedLayout/AuthorizedLayout";
 import { ProductInterface } from "~/components/Product/Interfaces/ProductInterface";
 import { ProductCard } from "~/components/Product/ProductCard/ProductCard";
@@ -18,9 +18,10 @@ export const loader = async (loaderArguments: LoaderFunctionArgs) => {
 };
 export default function OverviewPage() {
   const products: ProductInterface[] = useLoaderData<typeof loader>();
+  const location = useLocation();
 
   return (
-    <AuthorizedLayout.Page>
+    <AuthorizedLayout.Page activePage={location.pathname}>
       <div>
         <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {products.map((product, index) => {

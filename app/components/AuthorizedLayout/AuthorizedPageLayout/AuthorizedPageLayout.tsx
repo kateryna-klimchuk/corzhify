@@ -2,17 +2,16 @@ import React from "react";
 import { AuthorizedLayoutRoot } from "../AuthorizedLayoutRoot/AuthorizedLayoutRoot";
 import { AuthorizedLayoutHeader } from "../AuthorizedLayoutHeader/AuthorizedLayoutHeader";
 import { AuthorizedLayoutBody } from "../AuthorizedLayoutBody/AuthorizedLayoutBody";
-import { Outlet } from "@remix-run/react";
 import { AuthorizedLayoutFooter } from "../AuthorizedLayoutFooter/AuthorizedLayoutFooter";
-import { Icon } from "~/components/Icon/Icon";
-export const AuthorizedPageLayout: React.FunctionComponent<{
+
+interface AuthorizedPageLayoutInterface {
   children: React.ReactNode;
-}> = ({ children }) => {
+  activePage: string;
+}
+export const AuthorizedPageLayout: React.FunctionComponent<
+  AuthorizedPageLayoutInterface
+> = ({ children, activePage }) => {
   const navigationItems = [
-    {
-      label: "Overview",
-      href: "/overview",
-    },
     {
       label: "Products",
       href: "/products",
@@ -34,6 +33,7 @@ export const AuthorizedPageLayout: React.FunctionComponent<{
     <AuthorizedLayoutRoot>
       <AuthorizedLayoutHeader
         navigationItems={navigationItems}
+        activePage={activePage}
       ></AuthorizedLayoutHeader>
 
       {/* TODO Implement 'Back' button */}

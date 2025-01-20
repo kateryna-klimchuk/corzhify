@@ -8,11 +8,12 @@ import {
 } from "../../Navigation/Navigation";
 export interface AuthorizedLayoutHeaderInterface {
   navigationItems: NavigationItemInterface[];
+  activePage: string;
   children?: React.ReactNode;
 }
 export const AuthorizedLayoutHeader: React.FunctionComponent<
   AuthorizedLayoutHeaderInterface
-> = ({ navigationItems, children }) => {
+> = ({ navigationItems, children, activePage }) => {
   return (
     <header className="bg-orange-300 text-xl flex flex-wrap items-center px-4 py-3 sm:px-6">
       <NavLink
@@ -24,7 +25,7 @@ export const AuthorizedLayoutHeader: React.FunctionComponent<
         </span>
         <p>orzhify</p>
       </NavLink>
-      <Navigation items={navigationItems} />
+      <Navigation items={navigationItems} activePage={activePage} />
       {children}
 
       {/* // TODO implement login/signup buttons, when implemented auth */}
