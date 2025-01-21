@@ -1,5 +1,4 @@
 import {
-  Link,
   MetaFunction,
   useLoaderData,
   useLocation,
@@ -8,6 +7,8 @@ import {
 import { ProductInterface } from "../components/Product/Interfaces/ProductInterface";
 import { AuthorizedLayout } from "../components/AuthorizedLayout/AuthorizedLayout";
 import { LoaderFunctionArgs } from "@remix-run/node";
+import { ProductCard } from "~/components/Product/ProductCard/ProductCard";
+import { TextUtility } from "~/components/Utilities/TextUtility";
 
 export const meta: MetaFunction = () => {
   return [
@@ -29,35 +30,35 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
 
 export default function CategoryPage() {
   const categoryProducts: ProductInterface[] = useLoaderData();
+
   const location = useLocation();
   const navigate = useNavigate();
+
+  const url = location.pathname.split("/").pop();
+
+  const decodedString = TextUtility.decodedString(url as string);
+
+  const subtitle = TextUtility.capitalized(decodedString);
 
   return (
     <AuthorizedLayout.Page
       activePage={location.pathname}
       backButton={{ onClick: () => navigate(-1) }}
+      subTitle={`Category: ${subtitle}`}
     >
       <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {categoryProducts.map((product, index) => {
+        {categoryProducts.map((product) => {
           return (
-            <li
-              key={index}
-              className="border rounded border-gray-300 p-4 flex flex-col items-center"
-            >
-              <Link
-                to={`/products/${product.id}`}
-                className="block w-full text-center"
-              >
-                <div className="w-full h-40 flex items-center justify-center mb-4">
-                  <img
-                    src={product.image}
-                    alt={product.title}
-                    className="h-full object-contain"
-                  />
-                </div>
-                <h3 className="text-lg font-semibold">{product.title}</h3>
-              </Link>
-            </li>
+            <ProductCard
+              key={product.id}
+              product={{
+                id: product.id,
+                title: product.title,
+                image: product.image,
+                href: `/products/${product.id}`,
+                price: product.price,
+              }}
+            />
           );
         })}
       </ul>

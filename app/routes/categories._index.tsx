@@ -3,6 +3,7 @@ import { useLoaderData, useLocation, useNavigate } from "@remix-run/react";
 
 import { AuthorizedLayout } from "~/components/AuthorizedLayout/AuthorizedLayout";
 import { ProductCard } from "~/components/Product/ProductCard/ProductCard";
+import { TextUtility } from "~/components/Utilities/TextUtility";
 export const meta: MetaFunction = () => {
   return [
     { title: "Corzhify - Categories" },
@@ -35,7 +36,7 @@ export default function OverviewPage() {
           to offer. Start browsing!
         </p>
         <div>
-          <h2>Choose a category</h2>
+          <h2 className="pb-4">Choose the category:</h2>
           <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {categories.map((category, index) => {
               return (
@@ -43,7 +44,7 @@ export default function OverviewPage() {
                   key={index}
                   product={{
                     id: category,
-                    title: category,
+                    title: TextUtility.capitalized(category),
                     image: undefined,
                     href: `/categories/${category}`,
                   }}

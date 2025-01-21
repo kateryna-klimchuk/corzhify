@@ -27,7 +27,7 @@ export const ProductOverview: React.FunctionComponent<
           <ProductOverviewRow label="Category" description={product.category} />
           <ProductOverviewRow
             label="Price"
-            description={product.category}
+            description={`$ ${product.price}`}
             background="bg-gray-50"
           />
           <ProductOverviewRow

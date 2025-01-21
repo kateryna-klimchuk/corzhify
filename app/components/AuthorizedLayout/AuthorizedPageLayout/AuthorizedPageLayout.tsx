@@ -9,10 +9,11 @@ interface AuthorizedPageLayoutInterface {
   children: React.ReactNode;
   activePage: string;
   backButton?: { onClick: () => void };
+  subTitle?: string;
 }
 export const AuthorizedPageLayout: React.FunctionComponent<
   AuthorizedPageLayoutInterface
-> = ({ children, activePage, backButton }) => {
+> = ({ children, activePage, backButton, subTitle }) => {
   const navigationItems = [
     {
       label: "Products",
@@ -41,7 +42,7 @@ export const AuthorizedPageLayout: React.FunctionComponent<
         activePage={activePage}
       ></AuthorizedLayoutHeader>
       {backButton && (
-        <div className="border-b py-2 px-4">
+        <div className="border-b py-2 px-4 flex gap-4 items-center">
           <button
             type="button"
             className="default-focus-ring rounded disabled:cursor-not-allowed flex border rounder pl-2 py-1 pr-3 hover:bg-white transition-all"
@@ -50,6 +51,7 @@ export const AuthorizedPageLayout: React.FunctionComponent<
             <Icon.ArrowLeft className="h-6 w-6 text-gray-800" />
             <p>Back</p>
           </button>
+          {subTitle && <p>{subTitle}</p>}
         </div>
       )}
       <AuthorizedLayoutBody>{children}</AuthorizedLayoutBody>

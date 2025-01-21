@@ -28,15 +28,16 @@ export default function OverviewPage() {
     >
       <div>
         <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {products.map((product, index) => {
+          {products.map((product) => {
             return (
               <ProductCard
-                key={index}
+                key={product.id}
                 product={{
                   id: product.id,
                   title: product.title,
                   image: product.image,
                   href: `/products/${product.id}`,
+                  price: product.price,
                 }}
               />
             );
