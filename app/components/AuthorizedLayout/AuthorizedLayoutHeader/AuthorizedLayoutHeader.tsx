@@ -34,7 +34,7 @@ export const AuthorizedLayoutHeader: React.FunctionComponent<
       <div className="flex items-center gap-3 ml-auto">
         <Link
           to={"/cart"}
-          className="border rounded hover:bg-orange-200 transition-all p-2"
+          className="hover:rounded hover:bg-orange-200 transition-all p-2"
         >
           <Icon.Cart className="h-6 w-6" />
         </Link>

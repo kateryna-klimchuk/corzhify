@@ -20,6 +20,7 @@ export const Cart: React.FunctionComponent<CartInterface> = ({ product }) => {
             label="Name"
             description={product.title}
             hasLink={true}
+            productId={product.id}
           />
           <ProductOverviewRow
             label="Price"

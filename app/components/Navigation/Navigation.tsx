@@ -28,7 +28,7 @@ export const Navigation: React.FunctionComponent<NavigationInterface> = ({
               {isActive ? (
                 <NavLink
                   key={index}
-                  className="bg-orange-200 px-2 border rounded cursor-pointer"
+                  className="bg-orange-200 rounded px-3 cursor-pointer"
                   to={item.href}
                 >
                   {item.label}
@@ -36,7 +36,7 @@ export const Navigation: React.FunctionComponent<NavigationInterface> = ({
               ) : (
                 <NavLink
                   key={index}
-                  className="px-2 rounded border hover:bg-orange-200 cursor-pointer transition-all"
+                  className="px-3 hover:rounded hover:bg-orange-200 cursor-pointer transition-all"
                   to={item.href}
                 >
                   {item.label}
