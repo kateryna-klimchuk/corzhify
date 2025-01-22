@@ -1,7 +1,8 @@
+import { Link } from "@remix-run/react";
 import { NavLink } from "react-router-dom";
+import { Icon } from "~/components/Icon/Icon";
 // import { LoginButton } from "~/components/Button/LoginButton";
 // import { Button } from "../../Button/Button";
-// import { Icon } from "../../Icon/Icon";
 import {
   Navigation,
   NavigationItemInterface,
@@ -31,6 +32,12 @@ export const AuthorizedLayoutHeader: React.FunctionComponent<
       {/* // TODO implement login/signup buttons, when implemented auth */}
 
       <div className="flex items-center gap-3 ml-auto">
+        <Link
+          to={"/cart"}
+          className="border rounded hover:bg-orange-200 transition-all p-2"
+        >
+          <Icon.Cart className="h-6 w-6" />
+        </Link>
         {/* <LoginButton /> */}
         {/* <Button label="Sign up" color="transparent" /> */}
       </div>

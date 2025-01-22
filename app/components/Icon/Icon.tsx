@@ -4,6 +4,7 @@ import { LoginIcon } from "./Icons/LoginIcon";
 import { LogOutIcon } from "./Icons/LogoutIcon";
 import { SearchIcon } from "./Icons/SearchIcon";
 import { EmptyStateIcon } from "./Icons/EmptyStateIcon";
+import { CartIcon } from "./Icons/CartIcon";
 
 export const Icon = {
   DownArrow: DownArrowIcon,
@@ -12,4 +13,5 @@ export const Icon = {
   LogOut: LogOutIcon,
   ArrowLeft: ArrowLeftIcon,
   EmptyState: EmptyStateIcon,
+  Cart: CartIcon,
 };
