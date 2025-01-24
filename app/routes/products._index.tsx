@@ -11,13 +11,16 @@ export const meta: MetaFunction = () => {
 };
 
 export const loader = async (loaderArguments: LoaderFunctionArgs) => {
-  const products = await fetch("https://fakestoreapi.com/products").then(
+  const products: ProductInterface[] = await fetch(
+    "https://fakestoreapi.com/products"
+  ).then((res) => res.json());
+  const carts = await fetch("https://fakestoreapi.com/carts/user/2").then(
     (res) => res.json()
   );
-  return products;
+  return { products, carts };
 };
 export default function OverviewPage() {
-  const products: ProductInterface[] = useLoaderData<typeof loader>();
+  const { products, carts } = useLoaderData<typeof loader>();
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -25,6 +28,7 @@ export default function OverviewPage() {
     <AuthorizedLayout.Page
       activePage={location.pathname}
       backButton={{ onClick: () => navigate(-1) }}
+      cartAmount={carts[0].products.length}
     >
       <div>
         <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

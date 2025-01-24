@@ -10,10 +10,11 @@ interface AuthorizedPageLayoutInterface {
   activePage: string;
   backButton?: { onClick: () => void };
   subTitle?: string;
+  cartAmount?: number;
 }
 export const AuthorizedPageLayout: React.FunctionComponent<
   AuthorizedPageLayoutInterface
-> = ({ children, activePage, backButton, subTitle }) => {
+> = ({ children, activePage, backButton, subTitle, cartAmount }) => {
   const navigationItems = [
     {
       label: "Products",
@@ -40,6 +41,7 @@ export const AuthorizedPageLayout: React.FunctionComponent<
       <AuthorizedLayoutHeader
         navigationItems={navigationItems}
         activePage={activePage}
+        cartAmount={cartAmount}
       ></AuthorizedLayoutHeader>
       {backButton && (
         <div className="border-b py-2 px-4 flex gap-4 items-center">

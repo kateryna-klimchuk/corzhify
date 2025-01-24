@@ -6,9 +6,8 @@ import {
   useNavigate,
 } from "@remix-run/react";
 import { AuthorizedLayout } from "~/components/AuthorizedLayout/AuthorizedLayout";
-import { Cart } from "~/components/Cart/Cart";
+import { Cart } from "~/components/Cart/CartPage/CartPage";
 import { Icon } from "~/components/Icon/Icon";
-import { ProductCard } from "~/components/Product/ProductCard/ProductCard";
 export const meta: MetaFunction = () => {
   return [
     { title: "Corzhify - Cart" },
@@ -62,17 +61,15 @@ export default function CartPage() {
   const { carts, userProducts } = useLoaderData<typeof loader>();
   const location = useLocation();
   const navigate = useNavigate();
+
   return (
     <AuthorizedLayout.Page
       activePage={location.pathname}
       backButton={{ onClick: () => navigate(-1) }}
+      cartAmount={carts[0].products.length}
     >
       {userProducts ? (
-        <ul className="grid gap-2">
-          {userProducts.map((product, index) => {
-            return <Cart key={index} product={product} />;
-          })}
-        </ul>
+        <Cart products={userProducts} carts={carts} />
       ) : (
         <div className="flex flex-col justify-center items-center">
           <Icon.Cart width="160" height="160" strokeWidth={"1"} />

@@ -12,19 +12,22 @@ export const meta: MetaFunction = () => {
 };
 export const loader: LoaderFunction = async ({ params }) => {
   const productId = params.id;
-  const product = await fetch(
+  const product: ProductInterface = await fetch(
     `https://fakestoreapi.com/products/${productId}`
   ).then((res) => res.json());
+  const carts = await fetch("https://fakestoreapi.com/carts/user/2").then(
+    (res) => res.json()
+  );
 
   if (!product) {
     throw new Response("Product Not Found", { status: 404 });
   }
 
-  return product;
+  return { product, carts };
 };
 
 export default function ProductDetail() {
-  const product: ProductInterface = useLoaderData();
+  const { product, carts } = useLoaderData<typeof loader>();
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -32,6 +35,7 @@ export default function ProductDetail() {
     <AuthorizedLayout.Page
       activePage={location.pathname}
       backButton={{ onClick: () => navigate(-1) }}
+      cartAmount={carts[0].products.length}
     >
       <ProductOverview product={product} />
     </AuthorizedLayout.Page>

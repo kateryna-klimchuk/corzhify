@@ -7,3 +7,7 @@ export interface ProductInterface {
   rating: { rate: number; count: number };
   description: string;
 }
+
+export interface CartInterface extends ProductInterface {
+  count: number;
+}

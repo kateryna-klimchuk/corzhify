@@ -11,10 +11,11 @@ export interface AuthorizedLayoutHeaderInterface {
   navigationItems: NavigationItemInterface[];
   activePage: string;
   children?: React.ReactNode;
+  cartAmount?: number;
 }
 export const AuthorizedLayoutHeader: React.FunctionComponent<
   AuthorizedLayoutHeaderInterface
-> = ({ navigationItems, children, activePage }) => {
+> = ({ navigationItems, children, activePage, cartAmount }) => {
   return (
     <header className="bg-orange-300 text-xl flex flex-wrap items-center px-4 py-3 sm:px-6">
       <NavLink
@@ -36,7 +37,12 @@ export const AuthorizedLayoutHeader: React.FunctionComponent<
           to={"/cart"}
           className="hover:rounded hover:bg-orange-200 transition-all p-2"
         >
-          <Icon.Cart className="h-6 w-6" />
+          <Icon.Cart className="h-6 w-6 relative" />
+          {cartAmount && (
+            <span className="absolute top-5 right-5 bg-white text-sm rounded-full flex items-center justify-center h-[20px] w-[20px]">
+              {cartAmount}
+            </span>
+          )}
         </Link>
         {/* <LoginButton /> */}
         {/* <Button label="Sign up" color="transparent" /> */}

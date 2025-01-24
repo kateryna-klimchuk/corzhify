@@ -18,18 +18,20 @@ export const meta: MetaFunction = () => {
 };
 export const loader = async ({ params }: LoaderFunctionArgs) => {
   const category = params.category;
-  const categoryProducts = await fetch(
+  const categoryProducts: ProductInterface[] = await fetch(
     `https://fakestoreapi.com/products/category/${category}`
   ).then((res) => res.json());
-
+  const carts = await fetch("https://fakestoreapi.com/carts/user/2").then(
+    (res) => res.json()
+  );
   if (!categoryProducts) {
     throw new Response("Products Not Found", { status: 404 });
   }
-  return categoryProducts;
+  return { categoryProducts, carts };
 };
 
 export default function CategoryPage() {
-  const categoryProducts: ProductInterface[] = useLoaderData();
+  const { categoryProducts, carts } = useLoaderData<typeof loader>();
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -45,6 +47,7 @@ export default function CategoryPage() {
       activePage={location.pathname}
       backButton={{ onClick: () => navigate(-1) }}
       subTitle={`Category: ${subtitle}`}
+      cartAmount={carts[0].products.length}
     >
       <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {categoryProducts.map((product) => {

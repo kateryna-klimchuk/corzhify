@@ -12,14 +12,16 @@ export const meta: MetaFunction = () => {
 };
 
 export const loader = async (loaderArguments: LoaderFunctionArgs) => {
-  const categories = await fetch(
+  const categories: string[] = await fetch(
     "https://fakestoreapi.com/products/categories"
   ).then((res) => res.json());
-
-  return categories;
+  const carts = await fetch("https://fakestoreapi.com/carts/user/2").then(
+    (res) => res.json()
+  );
+  return { categories, carts };
 };
 export default function OverviewPage() {
-  const categories: string[] = useLoaderData<typeof loader>();
+  const { categories, carts } = useLoaderData<typeof loader>();
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -28,6 +30,7 @@ export default function OverviewPage() {
     <AuthorizedLayout.Page
       activePage={location.pathname}
       backButton={{ onClick: () => navigate(-1) }}
+      cartAmount={carts[0].products.length}
     >
       <div>
         <h1>Welcome to the Corzhify Categories</h1>

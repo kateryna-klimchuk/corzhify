@@ -11,16 +11,22 @@ export const meta: MetaFunction = () => {
 };
 
 export const loader = async () => {
-  const products = await fetch("https://fakestoreapi.com/products").then(
+  const products: ProductInterface[] = await fetch(
+    "https://fakestoreapi.com/products"
+  ).then((res) => res.json());
+  const carts = await fetch("https://fakestoreapi.com/carts/user/2").then(
     (res) => res.json()
   );
-  return products;
+  return { products, carts };
 };
 export default function OverviewPage() {
-  const products: ProductInterface[] = useLoaderData<typeof loader>();
+  const { products, carts } = useLoaderData<typeof loader>();
 
   return (
-    <AuthorizedLayout.Page activePage={""}>
+    <AuthorizedLayout.Page
+      activePage={""}
+      cartAmount={carts[0].products.length}
+    >
       <section className="text-center">
         <div className="bg-gradient-to-r from-orange-200 to-pink-200 py-4 mb-6">
           <h1 className="text-4xl font-bold">Welcome to Corzhify</h1>
