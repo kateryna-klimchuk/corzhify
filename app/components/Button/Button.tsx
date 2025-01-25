@@ -9,11 +9,13 @@ export interface ButtonInterface {
   size?: ButtonSizeType;
   color?: ButtonColorType;
   label?: string | React.ReactNode;
+  onClick?: () => void;
 }
 export const Button: React.FunctionComponent<ButtonInterface> = ({
   size = "small",
   color = "green",
   label = "Submit",
+  onClick,
 }) => {
   const colorClasses: Record<ButtonColorType, string> = {
     red: "bg-red-500 text-white",
@@ -31,6 +33,7 @@ export const Button: React.FunctionComponent<ButtonInterface> = ({
   return (
     <button
       className={`rounded ${colorClasses[color]} ${sizeClasses[size]} hover:opacity-90 transition-all cursor-pointer`}
+      onClick={onClick}
     >
       {label}
     </button>

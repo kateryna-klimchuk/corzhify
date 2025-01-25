@@ -26,7 +26,16 @@ export const Cart: React.FunctionComponent<CartInterface> = ({
     <div className="shadow-sm p-2 rounded">
       <ul className="grid gap-2">
         {result.map((product, index) => {
-          return <CartItem key={index} product={product} />;
+          return (
+            <CartItem
+              key={index}
+              product={product}
+              // TODO: Implement onDelete function
+              onDelete={function (id: number): void {
+                throw new Error("Function not implemented.");
+              }}
+            />
+          );
         })}
       </ul>
       <div className="flex items-center gap-4 mt-2">
