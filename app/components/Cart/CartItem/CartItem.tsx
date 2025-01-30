@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Icon } from "~/components/Icon/Icon";
-import { Modal } from "~/components/Modal/Modal";
+import { DeleteModal } from "~/components/Modal/DeleteModal";
 import { CartInterface } from "~/components/Product/Interfaces/ProductInterface";
 
 interface CartItemInterface {
@@ -24,8 +24,8 @@ export const CartItem: React.FunctionComponent<CartItemInterface> = ({
 
   const confirmDelete = () => {
     if (productToDelete) {
-      onDelete(productToDelete.id); // Trigger deletion
-      setProductToDelete(null); // Clear the state
+      onDelete(productToDelete.id);
+      setProductToDelete(null);
     }
   };
   return (
@@ -54,7 +54,7 @@ export const CartItem: React.FunctionComponent<CartItemInterface> = ({
             <p>Available: {product.rating.count}</p>
           </li>
         </ul>
-        <Modal
+        <DeleteModal
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
           onConfirm={confirmDelete}
