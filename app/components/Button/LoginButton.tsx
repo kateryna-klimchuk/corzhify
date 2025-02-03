@@ -1,8 +1,16 @@
 import { Icon } from "../Icon/Icon";
 import { Button } from "./Button";
+import { useNavigate } from "@remix-run/react";
 
 export const LoginButton = () => {
-  return <Button label={<LoginButtonLabel />} color="transparent" />;
+  const navigate = useNavigate();
+  return (
+    <Button
+      label={<LoginButtonLabel />}
+      color="transparent"
+      onClick={() => navigate("/login")}
+    />
+  );
 };
 
 const LoginButtonLabel = () => {

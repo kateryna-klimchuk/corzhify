@@ -21,7 +21,7 @@ export const Button: React.FunctionComponent<ButtonInterface> = ({
     red: "bg-red-500 text-white",
     white: "bg-white border border-gray-300 hover:bg-gray-100",
     blue: "bg-blue-500 text-white",
-    green: "bg-green-300",
+    green: "bg-green-500 text-white",
     transparent: "border border-gray-300 hover:bg-orange-200 text-lg",
   };
 

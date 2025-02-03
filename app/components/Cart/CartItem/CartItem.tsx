@@ -41,7 +41,7 @@ export const CartItem: React.FunctionComponent<CartItemInterface> = ({
         <ul className="">
           <li className="relative">
             <Icon.Delete
-              className="w-4 h-4 absolute top-1 right-1 hover:text-red-500 cursor-pointer transition-all"
+              className="w-4 h-4 absolute top-3 right-3 hover:text-red-500 cursor-pointer transition-all"
               onClick={() =>
                 handleDeleteClick({ id: product.id, title: product.title })
               }

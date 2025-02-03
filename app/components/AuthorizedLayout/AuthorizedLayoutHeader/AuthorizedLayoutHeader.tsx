@@ -1,8 +1,8 @@
-import { Link } from "@remix-run/react";
+import { Link, useNavigate } from "@remix-run/react";
 import { NavLink } from "react-router-dom";
+import { Button } from "~/components/Button/Button";
+import { LoginButton } from "~/components/Button/LoginButton";
 import { Icon } from "~/components/Icon/Icon";
-// import { LoginButton } from "~/components/Button/LoginButton";
-// import { Button } from "../../Button/Button";
 import {
   Navigation,
   NavigationItemInterface,
@@ -16,6 +16,8 @@ export interface AuthorizedLayoutHeaderInterface {
 export const AuthorizedLayoutHeader: React.FunctionComponent<
   AuthorizedLayoutHeaderInterface
 > = ({ navigationItems, children, activePage, cartAmount }) => {
+  const navigate = useNavigate();
+
   return (
     <header className="bg-orange-300 text-xl flex flex-wrap items-center px-4 py-3 sm:px-6">
       <NavLink
@@ -39,13 +41,17 @@ export const AuthorizedLayoutHeader: React.FunctionComponent<
         >
           <Icon.Cart className="h-6 w-6 relative" />
           {cartAmount && (
-            <span className="absolute top-5 right-5 bg-white text-sm rounded-full flex items-center justify-center h-[20px] w-[20px]">
+            <span className="absolute top-5 right-48 bg-white text-sm rounded-full flex items-center justify-center h-[18px] w-[18px]">
               {cartAmount}
             </span>
           )}
         </Link>
-        {/* <LoginButton /> */}
-        {/* <Button label="Sign up" color="transparent" /> */}
+        <LoginButton />
+        <Button
+          label="Sign up"
+          color="transparent"
+          onClick={() => navigate("/signup")}
+        />
       </div>
     </header>
   );

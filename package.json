@@ -17,7 +17,8 @@
     "@remix-run/node": "^2.15.2",
     "@remix-run/react": "^2.15.2",
     "@remix-run/serve": "^2.15.2",
-    "isbot": "^4.1.0"
+    "isbot": "^4.1.0",
+    "react-hook-form": "^7.54.2"
   },
   "devDependencies": {
     "@remix-run/dev": "^2.15.2",
