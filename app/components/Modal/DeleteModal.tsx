@@ -22,6 +22,7 @@ export const DeleteModal: React.FunctionComponent<DeleteModalInterface> = ({
       isOpen={isOpen}
       onClose={onClose}
       onConfirm={onConfirm}
+      actionType="delete"
       modalBody={
         <p className="mt-4 text-sm">
           Are you sure you want to delete{" "}

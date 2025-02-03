@@ -1,4 +1,7 @@
+import { useState } from "react";
 import { Button } from "~/components/Button/Button";
+import { Icon } from "~/components/Icon/Icon";
+import { Modal } from "~/components/Modal/Modal";
 import { ProductInterface } from "../../Product/Interfaces/ProductInterface";
 import { CartItem } from "../CartItem/CartItem";
 import { CartItemInterface } from "../Interfaces/CartInterface";
@@ -10,6 +13,8 @@ export const Cart: React.FunctionComponent<CartInterface> = ({
   products,
   carts,
 }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const productQuantities = carts
     .flatMap((cart) => cart.products)
     .reduce<Record<number, number>>((acc, product) => {
@@ -40,8 +45,29 @@ export const Cart: React.FunctionComponent<CartInterface> = ({
       </ul>
       <div className="flex items-center gap-4 mt-2">
         <p className="content-end">Total amount: $173.95</p>
-        <Button label="Pay now" size="medium" />
+        <Button
+          label={
+            <div className="flex items-center gap-2">
+              <Icon.Coin className="w-4 h-4" />
+              <p>I am ready to order</p>
+            </div>
+          }
+          size="medium"
+          onClick={() => setIsModalOpen(true)}
+        />
       </div>
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onConfirm={() => setIsModalOpen(false)}
+        modalBody={
+          <p className="mt-4 text-sm">
+            You are about to complete your payment of $173.95. Once confirmed,
+            this transaction cannot be canceled. Would you like to continue?
+          </p>
+        }
+        title={"Confirm Your Payment"}
+      />
     </div>
   );
 };

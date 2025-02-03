@@ -8,6 +8,7 @@ interface ModalInterface {
   modalBody: React.ReactNode;
   title: string;
   description?: string;
+  actionType?: "confirm" | "delete";
 }
 
 export const Modal: React.FC<ModalInterface> = ({
@@ -17,6 +18,7 @@ export const Modal: React.FC<ModalInterface> = ({
   modalBody,
   title,
   description,
+  actionType = "confirm",
 }) => {
   return (
     <Dialog open={isOpen} onClose={onClose} className="relative z-50">
@@ -30,15 +32,28 @@ export const Modal: React.FC<ModalInterface> = ({
             </Dialog.Description>
             {modalBody}
             <div className="mt-6 flex justify-end space-x-4">
-              <Button
-                onClick={() => {
-                  onConfirm();
-                  onClose();
-                }}
-                label="Delete"
-                color="red"
-                size="medium"
-              />
+              {actionType === "delete" ? (
+                <Button
+                  onClick={() => {
+                    onConfirm();
+                    onClose();
+                  }}
+                  label="Delete"
+                  color="red"
+                  size="medium"
+                />
+              ) : (
+                <Button
+                  onClick={() => {
+                    onConfirm();
+                    onClose();
+                  }}
+                  label="Confirm"
+                  color="blue"
+                  size="medium"
+                />
+              )}
+
               <Button
                 onClick={onClose}
                 label="Cancel"

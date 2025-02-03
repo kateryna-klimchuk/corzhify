@@ -7,6 +7,7 @@ import { EmptyStateIcon } from "./Icons/EmptyStateIcon";
 import { CartIcon } from "./Icons/CartIcon";
 import { LinkIcon } from "./Icons/LinkIcon";
 import { DeleteIcon } from "./Icons/DeleteIcon";
+import { CoinIcon } from "./Icons/CoinIcon";
 
 export const Icon = {
   DownArrow: DownArrowIcon,
@@ -18,4 +19,5 @@ export const Icon = {
   Cart: CartIcon,
   Link: LinkIcon,
   Delete: DeleteIcon,
+  Coin: CoinIcon,
 };
