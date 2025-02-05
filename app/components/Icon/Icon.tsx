@@ -8,6 +8,7 @@ import { CartIcon } from "./Icons/CartIcon";
 import { LinkIcon } from "./Icons/LinkIcon";
 import { DeleteIcon } from "./Icons/DeleteIcon";
 import { CoinIcon } from "./Icons/CoinIcon";
+import { MenuIcon } from "./Icons/MenuIcon";
 
 export const Icon = {
   DownArrow: DownArrowIcon,
@@ -20,4 +21,5 @@ export const Icon = {
   Link: LinkIcon,
   Delete: DeleteIcon,
   Coin: CoinIcon,
+  Menu: MenuIcon,
 };
