@@ -19,8 +19,8 @@ export const Navigation: React.FunctionComponent<NavigationInterface> = ({
   activePage,
 }) => {
   return (
-    <nav className="p-1 flex flex-col sm:gap-2 sm:flex-row sm:items-center rounded">
-      <ul className="flex flex-col sm:flex-row sm:gap-3">
+    <nav className="w-1/2 pb-2 sm:p-1 flex flex-col sm:gap-2 sm:flex-row sm:items-center rounded">
+      <ul className="flex flex-col sm:flex-row gap-1 sm:gap-3">
         {items.map((item, index) => {
           const isActive = activePage.startsWith(item.href);
           return (

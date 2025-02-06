@@ -40,7 +40,7 @@ export const AuthorizedLayoutHeader: React.FunctionComponent<
           {!isMenuOpen && <Icon.Menu className="h-6 w-6" />}
         </button>
 
-        <div className="hidden sm:flex items-center ml-auto space-x-4">
+        <div className="hidden sm:flex items-center space-x-4">
           <Navigation items={navigationItems} activePage={activePage} />
         </div>
 
@@ -55,7 +55,7 @@ export const AuthorizedLayoutHeader: React.FunctionComponent<
           >
             <Icon.Cart className="h-5 w-5 sm:h-6 sm:w-6 relative" />
             {cartAmount && (
-              <span className="absolute top-3 right-48 sm:top-5 bg-white text-xs sm:text-sm rounded-full flex items-center justify-center h-[14px] w-[14px]">
+              <span className="absolute top-3 right-48 sm:top-5 bg-white text-xs sm:text-sm rounded-full flex items-center justify-center h-[14px] w-[14px] sm:h-[18px] sm:w-[18px]">
                 {cartAmount}
               </span>
             )}
@@ -69,9 +69,9 @@ export const AuthorizedLayoutHeader: React.FunctionComponent<
         </div>
       </div>
       {isMenuOpen && (
-        <div className="sm:hidden flex flex-col mt-2 border-t-2 pb-2">
-          <button className="pt-2" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-            <Icon.Close className="h-4 w-4 ml-auto hover:rounded hover:bg-orange-200 transition-all" />
+        <div className="sm:hidden flex flex-col mt-2 border-gray-300 border-t-[1px] py-2">
+          <button onClick={() => setIsMenuOpen(!isMenuOpen)}>
+            <Icon.Close className="h-6 w-6 p-1 ml-auto hover:rounded hover:bg-orange-200 transition-all" />
           </button>
 
           <Navigation items={navigationItems} activePage={activePage} />
