@@ -19,8 +19,8 @@ export const Navigation: React.FunctionComponent<NavigationInterface> = ({
   activePage,
 }) => {
   return (
-    <nav className="p-1 flex flex-col gap-2 sm:flex-row sm:items-center rounded">
-      <ul className="flex flex-col gap-2 sm:flex-row sm:gap-3">
+    <nav className="p-1 flex flex-col sm:gap-2 sm:flex-row sm:items-center rounded">
+      <ul className="flex flex-col sm:flex-row sm:gap-3">
         {items.map((item, index) => {
           const isActive = activePage.startsWith(item.href);
           return (
@@ -28,7 +28,7 @@ export const Navigation: React.FunctionComponent<NavigationInterface> = ({
               {isActive ? (
                 <NavLink
                   key={index}
-                  className="bg-orange-200 rounded px-3 cursor-pointer py-1"
+                  className="bg-orange-200 rounded px-3 cursor-pointer sm:py-1"
                   to={item.href}
                 >
                   {item.label}
@@ -36,7 +36,7 @@ export const Navigation: React.FunctionComponent<NavigationInterface> = ({
               ) : (
                 <NavLink
                   key={index}
-                  className="px-3 hover:rounded hover:bg-orange-200 cursor-pointer transition-all py-1"
+                  className="px-3 hover:rounded hover:bg-orange-200 cursor-pointer transition-all sm:py-1"
                   to={item.href}
                 >
                   {item.label}
