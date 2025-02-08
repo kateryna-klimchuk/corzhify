@@ -19,19 +19,22 @@ export default function SignUp() {
           })}
           className="flex flex-col gap-4"
         >
-          <input
-            {...register("firstName", { required: "This is required." })}
-            placeholder="First name"
-            className="border rounded p-2 w-full"
-          />
-          <input
-            {...register("lastName", { required: "This is required." })}
-            placeholder="Last name"
-            className="border rounded p-2 w-full"
-          />
+          <div className="flex items-center gap-2">
+            <input
+              {...register("firstName", { required: "This is required." })}
+              placeholder="First name"
+              className="border rounded p-2 w-full"
+            />
+            <input
+              {...register("lastName", { required: "This is required." })}
+              placeholder="Last name"
+              className="border rounded p-2 w-full"
+            />
+          </div>
+
           <input
             {...register("email", { required: "This is required." })}
-            placeholder="email@mail.com"
+            placeholder="Email"
             className="border rounded p-2 w-full"
           />
           <input

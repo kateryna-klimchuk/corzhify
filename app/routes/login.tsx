@@ -20,7 +20,7 @@ export default function LogIn() {
         >
           <input
             {...register("email", { required: true })}
-            placeholder="email.mail.com"
+            placeholder="Email"
             className="border rounded p-2 w-full"
           />
           <input
