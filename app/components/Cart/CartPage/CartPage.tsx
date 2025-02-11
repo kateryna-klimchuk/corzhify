@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button } from "~/components/Button/Button";
 import { Icon } from "~/components/Icon/Icon";
 import { Modal } from "~/components/Modal/Modal";
+import { NumberUtility } from "~/components/Utilities/NumberUtility";
 import { ProductInterface } from "../../Product/Interfaces/ProductInterface";
 import { CartItem } from "../CartItem/CartItem";
 import { CartItemInterface } from "../Interfaces/CartInterface";
@@ -27,6 +28,13 @@ export const Cart: React.FunctionComponent<CartInterface> = ({
     count: productQuantities[product.id] || 0,
   }));
 
+  const totalAmount = result.reduce((acc, item) => {
+    const total = item.count * item.price;
+    return acc + total;
+  }, 0);
+
+  const cartTotalAmount = NumberUtility.formatMoney(totalAmount, "$");
+
   return (
     <div className="shadow-sm p-2 rounded">
       <ul className="grid gap-2">
@@ -44,7 +52,7 @@ export const Cart: React.FunctionComponent<CartInterface> = ({
         })}
       </ul>
       <div className="flex items-center gap-4 mt-2">
-        <p className="content-end">Total amount: $173.95</p>
+        <p className="content-end">Total amount: {cartTotalAmount}</p>
         <Button
           label={
             <div className="flex items-center gap-2">
@@ -62,8 +70,9 @@ export const Cart: React.FunctionComponent<CartInterface> = ({
         onConfirm={() => setIsModalOpen(false)}
         modalBody={
           <p className="mt-4 text-sm">
-            You are about to complete your payment of $173.95. Once confirmed,
-            this transaction cannot be canceled. Would you like to continue?
+            You are about to complete your payment of {cartTotalAmount}. Once
+            confirmed, this transaction cannot be canceled. Would you like to
+            continue?
           </p>
         }
         title={"Confirm Your Payment"}

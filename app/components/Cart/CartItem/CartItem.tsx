@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Icon } from "~/components/Icon/Icon";
 import { DeleteModal } from "~/components/Modal/DeleteModal";
 import { CartInterface } from "~/components/Product/Interfaces/ProductInterface";
+import { NumberUtility } from "~/components/Utilities/NumberUtility";
 
 interface CartItemInterface {
   product: CartInterface;
@@ -47,7 +48,7 @@ export const CartItem: React.FunctionComponent<CartItemInterface> = ({
               }
             />
             <p className="pr-4">Name: {product.title}</p>
-            <p>Price: ${product.price}</p>
+            <p>Price: {NumberUtility.formatMoney(product.price, "$")}</p>
             <label>Chosen count: </label>
             <input defaultValue={product.count} className="border pl-2 w-12" />
 
