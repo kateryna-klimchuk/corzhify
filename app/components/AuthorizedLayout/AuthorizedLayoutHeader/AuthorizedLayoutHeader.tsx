@@ -21,7 +21,7 @@ export const AuthorizedLayoutHeader: React.FunctionComponent<
   const navigate = useNavigate();
 
   return (
-    <header className="bg-orange-300 sm:text-xl px-4 sm:py-3 sm:px-6">
+    <header className="bg-orange-300 sm:text-xl px-4 sm:py-2 sm:px-6 fixed top-0 left-0 w-full">
       <div className="flex items-center">
         <NavLink
           to="/overview"

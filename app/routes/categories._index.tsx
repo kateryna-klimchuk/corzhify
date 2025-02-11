@@ -33,29 +33,21 @@ export default function OverviewPage() {
       cartAmount={carts[0].products.length}
     >
       <div>
-        <h1>Welcome to the Corzhify Categories</h1>
-        <p>
-          Discover the best products, latest trends, and everything Corzhify has
-          to offer. Start browsing!
-        </p>
-        <div>
-          <h2 className="pb-4">Choose the category:</h2>
-          <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {categories.map((category, index) => {
-              return (
-                <ProductCard
-                  key={index}
-                  product={{
-                    id: category,
-                    title: TextUtility.capitalized(category),
-                    image: undefined,
-                    href: `/categories/${category}`,
-                  }}
-                />
-              );
-            })}
-          </ul>
-        </div>
+        <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {categories.map((category, index) => {
+            return (
+              <ProductCard
+                key={index}
+                product={{
+                  id: category,
+                  title: TextUtility.capitalized(category),
+                  image: undefined,
+                  href: `/categories/${category}`,
+                }}
+              />
+            );
+          })}
+        </ul>
       </div>
     </AuthorizedLayout.Page>
   );

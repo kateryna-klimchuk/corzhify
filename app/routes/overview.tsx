@@ -29,14 +29,16 @@ export default function OverviewPage() {
     >
       <section className="text-center">
         <div className="bg-gradient-to-r from-orange-200 to-pink-200 py-4 mb-6">
-          <h1 className="text-4xl font-bold">Welcome to Corzhify</h1>
-          <p className="mt-4 text-lg">
+          <h1 className="text-xl md:text-4xl font-bold">Welcome to Corzhify</h1>
+          <p className="mt-4 text-sm md:text-lg">
             Find the best products at unbeatable prices!
           </p>
-          <h2 className="text-2xl font-semibold">Trending Products</h2>
+          <h2 className="text-lg md:text-2xl font-semibold">
+            Trending Products
+          </h2>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-slate-600">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 text-slate-600">
           {products.map((product) => (
             <ProductCard
               key={product.id}

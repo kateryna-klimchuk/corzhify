@@ -27,11 +27,11 @@ export const ProductCard: React.FunctionComponent<ProductCardInterface> = ({
               className="h-full object-contain"
             />
           ) : (
-            <Icon.EmptyState width="160" height="160" strokeWidth={"1"} />
+            <Icon.EmptyState width="160" height="160" strokeWidth={"0.5"} />
           )}
         </div>
 
-        <h3 className="text-lg font-semibold flex-grow">{product.title}</h3>
+        <h3 className="sm:text-lg font-semibold flex-grow">{product.title}</h3>
 
         {product.price && (
           <p className="mt-4 text-base font-medium text-gray-700">
