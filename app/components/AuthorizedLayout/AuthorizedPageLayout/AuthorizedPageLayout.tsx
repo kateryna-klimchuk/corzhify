@@ -44,7 +44,7 @@ export const AuthorizedPageLayout: React.FunctionComponent<
         cartAmount={cartAmount}
       ></AuthorizedLayoutHeader>
       {backButton && (
-        <div className="border-b pt-[84px] py-2 px-4 flex gap-4 items-center">
+        <div className="border-b pt-[84px] py-2 px-4 sm:px-6 flex gap-4 items-center">
           <button
             type="button"
             className="default-focus-ring rounded disabled:cursor-not-allowed flex border rounder pl-2 py-1 pr-3 hover:bg-white transition-all"
@@ -56,6 +56,7 @@ export const AuthorizedPageLayout: React.FunctionComponent<
           {subTitle && <p>{subTitle}</p>}
         </div>
       )}
+
       <AuthorizedLayoutBody>{children}</AuthorizedLayoutBody>
       <AuthorizedLayoutFooter />
     </AuthorizedLayoutRoot>
