@@ -36,7 +36,7 @@ export const Cart: React.FunctionComponent<CartInterface> = ({
   const cartTotalAmount = NumberUtility.formatMoney(totalAmount, "$");
 
   return (
-    <div className="shadow-sm p-2 rounded">
+    <div className="shadow-sm p-2 rounded text-xs sm:text-base">
       <ul className="grid gap-2">
         {result.map((product, index) => {
           return (
