@@ -30,7 +30,7 @@ export const CartItem: React.FunctionComponent<CartItemInterface> = ({
     }
   };
   return (
-    <li className="flex items-center bg-white border rounded border-gray-200">
+    <li className="flex items-center bg-white border rounded border-gray-200 p-1 sm:p-2">
       <div className="w-16 h-16 sm:w-[90px] sm:h-[90px] flex items-center justify-center py-1">
         <img
           src={product.image}
@@ -39,18 +39,18 @@ export const CartItem: React.FunctionComponent<CartItemInterface> = ({
         />
       </div>
       <div className="grow relative">
-        <Icon.Delete
-          className="w-4 h-4 absolute top-3 right-3 hover:text-red-500 cursor-pointer transition-all"
-          onClick={() =>
-            handleDeleteClick({ id: product.id, title: product.title })
-          }
-        />
         <p className="pr-4">Name: {product.title}</p>
         <p>Price: {NumberUtility.formatMoney(product.price, "$")}</p>
         <label>Chosen count: </label>
         <input defaultValue={product.count} className="border pl-2 w-12" />
 
         <p>Available: {product.rating.count}</p>
+        <Icon.Delete
+          className="w-4 h-4 absolute bottom-1 right-1 hover:text-red-500 cursor-pointer transition-all"
+          onClick={() =>
+            handleDeleteClick({ id: product.id, title: product.title })
+          }
+        />
       </div>
       <DeleteModal
         isOpen={isModalOpen}
