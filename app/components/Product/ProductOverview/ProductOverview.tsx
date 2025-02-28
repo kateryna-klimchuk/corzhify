@@ -46,12 +46,12 @@ export const ProductOverview: React.FunctionComponent<
             description={product.description}
           />
         </ul>
-        <div className="flex gap-2 ml-1 sm:ml-3">
+        <div className="flex gap-2 ml-1 md:ml-3">
           <input
             placeholder="0"
-            className="border border-gray-300 pl-2 rounded text-xs sm:text-sm focus:border-orange-400 focus:ring-orange-400 outline-none"
+            className="border border-gray-300 pl-2 rounded text-xs md:text-sm focus:border-orange-400 focus:ring-orange-400 outline-none"
           />
-          <Button label={<Icon.Cart className="w-6 sm:w-8 h-6 sm:h-8" />} />
+          <Button label={<Icon.Cart className="w-6 md:w-8 h-6 md:h-8" />} />
         </div>
       </div>
     </div>

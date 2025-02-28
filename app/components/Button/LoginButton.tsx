@@ -16,7 +16,7 @@ export const LoginButton = () => {
 const LoginButtonLabel = () => {
   return (
     <div className="flex items-center gap-1">
-      <p>Log in</p>
+      <p className="hidden md:block">Log in</p>
       <Icon.Login className="w-4 h-4" />
     </div>
   );

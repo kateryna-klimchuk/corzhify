@@ -44,13 +44,13 @@ export const AuthorizedPageLayout: React.FunctionComponent<
         cartAmount={cartAmount}
       ></AuthorizedLayoutHeader>
       {backButton && (
-        <div className="border-b pt-[84px] py-2 px-4 sm:px-6 flex gap-4 items-center">
+        <div className="pt-[84px] py-2 px-4 sm:px-6 flex gap-4 items-center">
           <button
             type="button"
-            className="default-focus-ring rounded disabled:cursor-not-allowed flex border rounder pl-2 py-1 pr-3 hover:bg-white transition-all"
+            className="flex items-center default-focus-ring rounded disabled:cursor-not-allowed rounder pl-2 py-1 pr-3 hover:bg-orange-100 transition-all"
             onClick={backButton.onClick}
           >
-            <Icon.ArrowLeft className="h-6 w-6 text-gray-800" />
+            <Icon.ArrowLeft className="h-5 w-5 text-gray-800" />
             <p>Back</p>
           </button>
           {subTitle && <p>{subTitle}</p>}

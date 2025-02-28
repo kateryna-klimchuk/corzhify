@@ -14,10 +14,10 @@ export const ProductOverviewRow: React.FunctionComponent<
 > = ({ label, description, background, hasLink, productId }) => {
   return (
     <li
-      className={`grid p-1 sm:p-3 text-xs sm:text-sm gap-x-2 grid-cols-7 ${background}`}
+      className={`grid grid-cols-1 p-1 md:p-3 text-xs md:text-sm md:gap-x-2 md:grid-cols-7 ${background}`}
     >
-      <div className="col-span-2 font-medium text-gray-900">{label}</div>
-      <div className={`col-span-5 ${hasLink && "flex items-center gap-2"}`}>
+      <div className="md:col-span-2 font-medium text-gray-900">{label}</div>
+      <div className={`md:col-span-5 ${hasLink && "flex items-center gap-2"}`}>
         <pre
           className="whitespace-pre-wrap"
           style={{

@@ -21,7 +21,7 @@ export const AuthorizedLayoutHeader: React.FunctionComponent<
   const navigate = useNavigate();
 
   return (
-    <header className="bg-orange-300 sm:text-xl px-4 sm:py-2 sm:px-6 fixed top-0 left-0 w-full shadow-md z-50 opacity-95">
+    <header className="bg-orange-300 sm:text-xl px-6 sm:py-2 sm:px-24 fixed top-0 left-0 w-full shadow-md z-50 opacity-95">
       <div className="flex items-center">
         <NavLink
           to="/overview"
@@ -51,11 +51,11 @@ export const AuthorizedLayoutHeader: React.FunctionComponent<
         <div className="flex items-center ml-auto space-x-4">
           <Link
             to={"/cart"}
-            className="hover:rounded hover:bg-orange-200 transition-all p-2"
+            className="relative hover:rounded hover:bg-orange-200 transition-all p-2"
           >
-            <Icon.Cart className="h-5 w-5 sm:h-6 sm:w-6 relative" />
+            <Icon.Cart className="h-5 w-5 sm:h-6 sm:w-6" />
             {cartAmount && (
-              <span className="absolute top-3 right-48 sm:top-5 bg-white text-xs sm:text-sm rounded-full flex items-center justify-center h-[14px] w-[14px] sm:h-[18px] sm:w-[18px]">
+              <span className="absolute -top-1 -right-1 bg-white text-xs sm:text-sm rounded-full flex items-center justify-center h-[14px] w-[14px] sm:h-[18px] sm:w-[18px]">
                 {cartAmount}
               </span>
             )}
