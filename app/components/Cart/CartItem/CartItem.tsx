@@ -30,28 +30,46 @@ export const CartItem: React.FunctionComponent<CartItemInterface> = ({
     }
   };
   return (
-    <li className="flex items-center bg-white border rounded border-gray-200 p-1 sm:p-2">
-      <div className="w-16 h-16 sm:w-[90px] sm:h-[90px] flex items-center justify-center py-1">
+    <li className="flex items-center bg-white border rounded-lg border-gray-200 p-3 sm:p-4 hover:shadow-md transition-shadow">
+      <div className="w-20 h-20 sm:w-24 sm:h-24 flex items-center justify-center bg-gray-50 rounded-lg p-2">
         <img
           src={product.image}
           alt={product.title}
           className="object-contain h-full"
         />
       </div>
-      <div className="grow relative">
-        <p className="pr-4">Name: {product.title}</p>
-        <p>Price: {NumberUtility.formatMoney(product.price, "$")}</p>
-        <label>Chosen count: </label>
-        <input defaultValue={product.count} className="border pl-2 w-12" />
-
-        <p>Available: {product.rating.count}</p>
-        <Icon.Delete
-          className="w-4 h-4 absolute bottom-1 right-1 hover:text-red-500 cursor-pointer transition-all"
-          onClick={() =>
-            handleDeleteClick({ id: product.id, title: product.title })
-          }
-        />
+      <div className="grow ml-4">
+        <p className="font-semibold text-slate-800 mb-1 pr-8">{product.title}</p>
+        <p className="text-primary-600 font-bold text-lg mb-2">
+          {NumberUtility.formatMoney(product.price, "$")}
+        </p>
+        <div className="flex items-center gap-2 mt-2">
+          <label htmlFor={`qty-${product.id}`} className="text-sm text-slate-600">
+            Qty:
+          </label>
+          <input
+            id={`qty-${product.id}`}
+            type="number"
+            defaultValue={product.count}
+            min="1"
+            max={product.rating.count}
+            className="border border-gray-300 rounded-md px-2 py-1 w-16 focus:ring-2 focus:ring-primary-400 focus:border-transparent outline-none text-sm"
+            aria-label={`Quantity for ${product.title}`}
+          />
+          <span className="text-xs text-slate-500">
+            ({product.rating.count} available)
+          </span>
+        </div>
       </div>
+      <button
+        onClick={() =>
+          handleDeleteClick({ id: product.id, title: product.title })
+        }
+        className="ml-2 p-2 rounded-lg hover:bg-red-50 transition-colors"
+        aria-label={`Remove ${product.title} from cart`}
+      >
+        <Icon.Delete className="w-5 h-5 text-slate-400 hover:text-red-500 transition-colors" />
+      </button>
       <DeleteModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}

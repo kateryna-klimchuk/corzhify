@@ -19,30 +19,24 @@ export const Navigation: React.FunctionComponent<NavigationInterface> = ({
   activePage,
 }) => {
   return (
-    <nav className="w-1/2 pb-2 sm:p-1 flex flex-col sm:gap-2 sm:flex-row sm:items-center rounded">
+    <nav className="w-1/2 pb-2 sm:p-1 flex flex-col sm:gap-2 sm:flex-row sm:items-center rounded" aria-label="Main navigation">
       <ul className="flex flex-col sm:flex-row gap-1 sm:gap-3">
         {items.map((item, index) => {
           const isActive = activePage.startsWith(item.href);
           return (
-            <>
-              {isActive ? (
-                <NavLink
-                  key={index}
-                  className="bg-orange-200 rounded px-3 cursor-pointer sm:py-1"
-                  to={item.href}
-                >
-                  {item.label}
-                </NavLink>
-              ) : (
-                <NavLink
-                  key={index}
-                  className="px-3 hover:rounded hover:bg-orange-200 cursor-pointer transition-all sm:py-1"
-                  to={item.href}
-                >
-                  {item.label}
-                </NavLink>
-              )}
-            </>
+            <li key={index}>
+              <NavLink
+                className={`block px-3 sm:py-1 rounded-lg cursor-pointer transition-all duration-200 font-medium ${
+                  isActive
+                    ? "bg-orange-200 shadow-sm"
+                    : "hover:bg-orange-200/70"
+                }`}
+                to={item.href}
+                aria-current={isActive ? "page" : undefined}
+              >
+                {item.label}
+              </NavLink>
+            </li>
           );
         })}
       </ul>

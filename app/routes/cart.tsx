@@ -8,6 +8,8 @@ import {
 import { AuthorizedLayout } from "~/components/AuthorizedLayout/AuthorizedLayout";
 import { Cart } from "~/components/Cart/CartPage/CartPage";
 import { Icon } from "~/components/Icon/Icon";
+import { CartService } from "~/services/api";
+
 export const meta: MetaFunction = () => {
   return [
     { title: "Corzhify - Cart" },
@@ -15,45 +17,19 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-export type ProductInterface = {
-  id: number;
-  title: string;
-  image: string;
-  price: number;
-  category: string;
-  rating: { rate: number; count: number };
-  description: string;
-} | null;
-
 export const loader = async () => {
   try {
-    // Fetch user carts from random user
     // TODO: Change to exact user after auth implemented
-    const carts = await fetch("https://fakestoreapi.com/carts/user/2").then(
-      (res) => res.json()
-    );
-
-    //   TODO: Replace this function to Product service/class
-
-    const getUserProducts = async () => {
-      const productPromises = carts[0].products.map(
-        (product: { productId: number }) =>
-          fetch(`https://fakestoreapi.com/products/${product.productId}`).then(
-            (res) => res.json()
-          )
-      );
-      const userProducts = await Promise.all(productPromises);
-      return userProducts;
-    };
-
-    const userProducts = await getUserProducts();
-
-    // TODO: Check, if I need carts array
+    const userId = 2;
+    const [carts, userProducts] = await Promise.all([
+      CartService.getUserCart(userId),
+      CartService.getUserProducts(userId),
+    ]);
 
     return { carts, userProducts };
   } catch (error) {
     console.error("Error loading user products:", error);
-    throw new Error("Failed to load user products.");
+    throw new Response("Failed to load cart", { status: 500 });
   }
 };
 

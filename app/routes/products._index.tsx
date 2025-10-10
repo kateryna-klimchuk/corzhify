@@ -3,6 +3,8 @@ import { useLoaderData, useLocation, useNavigate } from "@remix-run/react";
 import { AuthorizedLayout } from "~/components/AuthorizedLayout/AuthorizedLayout";
 import { ProductInterface } from "~/components/Product/Interfaces/ProductInterface";
 import { ProductCard } from "~/components/Product/ProductCard/ProductCard";
+import { ProductService, CartService } from "~/services/api";
+
 export const meta: MetaFunction = () => {
   return [
     { title: "Corzhify - Products" },
@@ -11,13 +13,16 @@ export const meta: MetaFunction = () => {
 };
 
 export const loader = async (loaderArguments: LoaderFunctionArgs) => {
-  const products: ProductInterface[] = await fetch(
-    "https://fakestoreapi.com/products"
-  ).then((res) => res.json());
-  const carts = await fetch("https://fakestoreapi.com/carts/user/2").then(
-    (res) => res.json()
-  );
-  return { products, carts };
+  try {
+    const [products, carts] = await Promise.all([
+      ProductService.getAll(),
+      CartService.getUserCart(2),
+    ]);
+    return { products, carts };
+  } catch (error) {
+    console.error("Failed to load products:", error);
+    throw new Response("Failed to load products", { status: 500 });
+  }
 };
 export default function OverviewPage() {
   const { products, carts } = useLoaderData<typeof loader>();

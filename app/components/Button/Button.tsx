@@ -18,21 +18,21 @@ export const Button: React.FunctionComponent<ButtonInterface> = ({
   onClick,
 }) => {
   const colorClasses: Record<ButtonColorType, string> = {
-    red: "bg-red-500 text-white",
-    white: "bg-white border border-gray-300 hover:bg-gray-100",
-    blue: "bg-blue-500 text-white",
-    green: "bg-green-500 text-white",
-    transparent: "border border-gray-300 hover:bg-orange-200 text-lg",
+    red: "bg-red-500 hover:bg-red-600 text-white shadow-sm",
+    white: "bg-white border border-gray-300 hover:bg-gray-50 shadow-sm",
+    blue: "bg-blue-500 hover:bg-blue-600 text-white shadow-sm",
+    green: "bg-primary-500 hover:bg-primary-600 text-white shadow-sm",
+    transparent: "border border-gray-300 hover:bg-orange-200/50 text-base backdrop-blur",
   };
 
   const sizeClasses: Record<ButtonSizeType, string> = {
-    small: "px-2 py-1 text-sm",
-    medium: "px-4 py-1 text-base",
-    large: "px-6 py-2 text-lg",
+    small: "px-3 py-1.5 text-sm",
+    medium: "px-4 py-2 text-base",
+    large: "px-6 py-2.5 text-lg",
   };
   return (
     <button
-      className={`rounded ${colorClasses[color]} ${sizeClasses[size]} hover:opacity-90 transition-all cursor-pointer`}
+      className={`rounded-lg ${colorClasses[color]} ${sizeClasses[size]} transition-all duration-200 cursor-pointer font-medium`}
       onClick={onClick}
     >
       {label}

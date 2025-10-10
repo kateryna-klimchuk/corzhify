@@ -70,6 +70,10 @@ module.exports = {
         "plugin:import/recommended",
         "plugin:import/typescript",
       ],
+      rules: {
+        // Disable prop-types as we use TypeScript for type checking
+        "react/prop-types": "off",
+      },
     },
 
     // Node
