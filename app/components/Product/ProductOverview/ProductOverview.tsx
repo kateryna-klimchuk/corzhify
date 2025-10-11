@@ -1,7 +1,9 @@
+import { useState } from "react";
 import { Button } from "~/components/Button/Button";
 import { Icon } from "~/components/Icon/Icon";
 import { ProductInterface } from "../Interfaces/ProductInterface";
 import { ProductOverviewRow } from "./ProductOverviewRow/ProductOverviewRow";
+import { useCart } from "~/contexts/CartContext";
 
 export interface ProductOverviewInterface {
   product: ProductInterface;
@@ -10,6 +12,18 @@ export interface ProductOverviewInterface {
 export const ProductOverview: React.FunctionComponent<
   ProductOverviewInterface
 > = ({ product }) => {
+  const { addToCart } = useCart();
+  const [quantity, setQuantity] = useState(1);
+  const [isAdding, setIsAdding] = useState(false);
+
+  const handleAddToCart = () => {
+    setIsAdding(true);
+    addToCart(product.id, quantity);
+    setTimeout(() => {
+      setIsAdding(false);
+    }, 1000);
+  };
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-white border rounded-lg border-gray-200 shadow-card overflow-hidden">
       <div className="w-full h-[400px] md:h-[520px] flex items-center justify-center bg-gray-50 p-4 md:p-8">
@@ -52,7 +66,8 @@ export const ProductOverview: React.FunctionComponent<
             type="number"
             min="1"
             max={product.rating.count}
-            defaultValue="1"
+            value={quantity}
+            onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
             placeholder="Qty"
             className="border border-gray-300 px-3 py-2 rounded-lg text-sm md:text-base focus:ring-2 focus:ring-primary-400 focus:border-transparent outline-none w-20"
             aria-label="Quantity"
@@ -61,10 +76,13 @@ export const ProductOverview: React.FunctionComponent<
             label={
               <div className="flex items-center gap-2">
                 <Icon.Cart className="w-5 md:w-6 h-5 md:h-6" />
-                <span className="hidden sm:inline">Add to Cart</span>
+                <span className="hidden sm:inline">
+                  {isAdding ? "Added!" : "Add to Cart"}
+                </span>
               </div>
             }
             size="medium"
+            onClick={handleAddToCart}
           />
         </div>
       </div>

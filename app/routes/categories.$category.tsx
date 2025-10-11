@@ -9,6 +9,7 @@ import { AuthorizedLayout } from "../components/AuthorizedLayout/AuthorizedLayou
 import { LoaderFunctionArgs } from "@remix-run/node";
 import { ProductCard } from "~/components/Product/ProductCard/ProductCard";
 import { TextUtility } from "~/components/Utilities/TextUtility";
+import { useCart } from "~/contexts/CartContext";
 
 export const meta: MetaFunction = () => {
   return [
@@ -21,20 +22,18 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
   const categoryProducts: ProductInterface[] = await fetch(
     `https://fakestoreapi.com/products/category/${category}`
   ).then((res) => res.json());
-  const carts = await fetch("https://fakestoreapi.com/carts/user/2").then(
-    (res) => res.json()
-  );
   if (!categoryProducts) {
     throw new Response("Products Not Found", { status: 404 });
   }
-  return { categoryProducts, carts };
+  return { categoryProducts };
 };
 
 export default function CategoryPage() {
-  const { categoryProducts, carts } = useLoaderData<typeof loader>();
+  const { categoryProducts } = useLoaderData<typeof loader>();
 
   const location = useLocation();
   const navigate = useNavigate();
+  const { getCartItemCount } = useCart();
 
   const url = location.pathname.split("/").pop();
 
@@ -47,7 +46,7 @@ export default function CategoryPage() {
       activePage={location.pathname}
       backButton={{ onClick: () => navigate(-1) }}
       subTitle={`Category: ${subtitle}`}
-      cartAmount={carts[0].products.length}
+      cartAmount={getCartItemCount()}
     >
       <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {categoryProducts.map((product) => {

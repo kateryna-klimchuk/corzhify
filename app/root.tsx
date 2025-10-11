@@ -8,6 +8,7 @@ import {
 } from "@remix-run/react";
 
 import stylesheet from "~/tailwind.css?url";
+import { CartProvider } from "~/contexts/CartContext";
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: stylesheet },
@@ -23,9 +24,11 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <Outlet />
-        <ScrollRestoration />
-        <Scripts />
+        <CartProvider>
+          <Outlet />
+          <ScrollRestoration />
+          <Scripts />
+        </CartProvider>
       </body>
     </html>
   );

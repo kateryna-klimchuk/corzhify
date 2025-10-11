@@ -4,5 +4,5 @@ export interface AuthorizedLayoutBodyInterface {
 export const AuthorizedLayoutBody: React.FunctionComponent<
   AuthorizedLayoutBodyInterface
 > = ({ children }) => {
-  return <main className="mx-auto pt-20 p-6 flex-grow">{children}</main>;
+  return <main className="mx-auto pt-20 p-6 flex-grow max-w-7xl">{children}</main>;
 };

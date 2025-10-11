@@ -2,7 +2,8 @@ import { MetaFunction } from "@remix-run/node";
 import { Link, useLoaderData } from "@remix-run/react";
 import { AuthorizedLayout } from "~/components/AuthorizedLayout/AuthorizedLayout";
 import { ProductCard } from "~/components/Product/ProductCard/ProductCard";
-import { ProductService, CartService } from "~/services/api";
+import { ProductService } from "~/services/api";
+import { useCart } from "~/contexts/CartContext";
 
 export const meta: MetaFunction = () => {
   return [
@@ -13,23 +14,21 @@ export const meta: MetaFunction = () => {
 
 export const loader = async () => {
   try {
-    const [products, carts] = await Promise.all([
-      ProductService.getAll(),
-      CartService.getUserCart(2),
-    ]);
-    return { products, carts };
+    const products = await ProductService.getAll();
+    return { products };
   } catch (error) {
     console.error("Failed to load overview data:", error);
     throw new Response("Failed to load data", { status: 500 });
   }
 };
 export default function OverviewPage() {
-  const { products, carts } = useLoaderData<typeof loader>();
+  const { products } = useLoaderData<typeof loader>();
+  const { getCartItemCount } = useCart();
 
   return (
     <AuthorizedLayout.Page
       activePage={""}
-      cartAmount={carts[0].products.length}
+      cartAmount={getCartItemCount()}
     >
       <section>
         <div className="bg-gradient-to-r from-primary-200 via-orange-200 to-secondary-200 py-12 mb-8 rounded-2xl shadow-lg text-center">
@@ -44,7 +43,7 @@ export default function OverviewPage() {
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 text-slate-600">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 text-slate-600">
           {products.map((product) => (
             <ProductCard
               key={product.id}

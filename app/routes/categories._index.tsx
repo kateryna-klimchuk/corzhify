@@ -4,6 +4,8 @@ import { useLoaderData, useLocation, useNavigate } from "@remix-run/react";
 import { AuthorizedLayout } from "~/components/AuthorizedLayout/AuthorizedLayout";
 import { ProductCard } from "~/components/Product/ProductCard/ProductCard";
 import { TextUtility } from "~/components/Utilities/TextUtility";
+import { useCart } from "~/contexts/CartContext";
+
 export const meta: MetaFunction = () => {
   return [
     { title: "Corzhify - Categories" },
@@ -15,22 +17,20 @@ export const loader = async (loaderArguments: LoaderFunctionArgs) => {
   const categories: string[] = await fetch(
     "https://fakestoreapi.com/products/categories"
   ).then((res) => res.json());
-  const carts = await fetch("https://fakestoreapi.com/carts/user/2").then(
-    (res) => res.json()
-  );
-  return { categories, carts };
+  return { categories };
 };
 export default function OverviewPage() {
-  const { categories, carts } = useLoaderData<typeof loader>();
+  const { categories } = useLoaderData<typeof loader>();
 
   const location = useLocation();
   const navigate = useNavigate();
+  const { getCartItemCount } = useCart();
 
   return (
     <AuthorizedLayout.Page
       activePage={location.pathname}
       backButton={{ onClick: () => navigate(-1) }}
-      cartAmount={carts[0].products.length}
+      cartAmount={getCartItemCount()}
     >
       <div>
         <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

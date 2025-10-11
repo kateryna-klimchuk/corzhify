@@ -1,27 +1,48 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "~/components/Button/Button";
 import { Icon } from "~/components/Icon/Icon";
 import { Modal } from "~/components/Modal/Modal";
 import { NumberUtility } from "~/components/Utilities/NumberUtility";
 import { ProductInterface } from "../../Product/Interfaces/ProductInterface";
 import { CartItem } from "../CartItem/CartItem";
-import { CartItemInterface } from "../Interfaces/CartInterface";
-interface CartInterface {
-  products: ProductInterface[];
-  carts: CartItemInterface[];
-}
-export const Cart: React.FunctionComponent<CartInterface> = ({
-  products,
-  carts,
-}) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+import { useCart } from "~/contexts/CartContext";
+import { CartService } from "~/services/api";
+import { Product } from "~/types";
 
-  const productQuantities = carts
-    .flatMap((cart) => cart.products)
-    .reduce<Record<number, number>>((acc, product) => {
-      acc[product.productId] = (acc[product.productId] || 0) + product.quantity;
+export const Cart: React.FunctionComponent = () => {
+  const { cart, removeFromCart, clearCart } = useCart();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [products, setProducts] = useState<Product[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const loadProducts = async () => {
+      try {
+        setIsLoading(true);
+        const fetchedProducts = await CartService.getCartProducts(cart);
+        setProducts(fetchedProducts);
+      } catch (error) {
+        console.error("Failed to load cart products:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    if (cart.products.length > 0) {
+      loadProducts();
+    } else {
+      setProducts([]);
+      setIsLoading(false);
+    }
+  }, [cart]);
+
+  const productQuantities = cart.products.reduce<Record<number, number>>(
+    (acc, product) => {
+      acc[product.productId] = product.quantity;
       return acc;
-    }, {});
+    },
+    {}
+  );
 
   const result = products.map((product) => ({
     ...product,
@@ -35,18 +56,28 @@ export const Cart: React.FunctionComponent<CartInterface> = ({
 
   const cartTotalAmount = NumberUtility.formatMoney(totalAmount, "$");
 
+  const handleConfirmOrder = () => {
+    clearCart();
+    setIsModalOpen(false);
+  };
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center py-12">
+        <p className="text-slate-600">Loading cart...</p>
+      </div>
+    );
+  }
+
   return (
     <div className="shadow-sm p-2 rounded text-xs sm:text-base">
       <ul className="grid gap-2">
-        {result.map((product, index) => {
+        {result.map((product) => {
           return (
             <CartItem
-              key={index}
+              key={product.id}
               product={product}
-              // TODO: Implement onDelete function
-              onDelete={function (id: number): void {
-                throw new Error("Function not implemented.");
-              }}
+              onDelete={removeFromCart}
             />
           );
         })}
@@ -67,7 +98,7 @@ export const Cart: React.FunctionComponent<CartInterface> = ({
       <Modal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        onConfirm={() => setIsModalOpen(false)}
+        onConfirm={handleConfirmOrder}
         modalBody={
           <p className="mt-4 text-sm">
             You are about to complete your payment of {cartTotalAmount}. Once

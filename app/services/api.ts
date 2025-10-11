@@ -62,6 +62,18 @@ export class CartService {
     return userProducts;
   }
 
+  static async getCartProducts(cart: Cart): Promise<Product[]> {
+    if (!cart.products || cart.products.length === 0) {
+      return [];
+    }
+
+    const productPromises = cart.products.map((product) =>
+      ProductService.getById(product.productId)
+    );
+
+    return await Promise.all(productPromises);
+  }
+
   static getProductQuantities(carts: Cart[]): Record<number, number> {
     return carts
       .flatMap((cart) => cart.products)

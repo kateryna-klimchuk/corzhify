@@ -3,6 +3,7 @@ import { Icon } from "~/components/Icon/Icon";
 import { DeleteModal } from "~/components/Modal/DeleteModal";
 import { CartInterface } from "~/components/Product/Interfaces/ProductInterface";
 import { NumberUtility } from "~/components/Utilities/NumberUtility";
+import { useCart } from "~/contexts/CartContext";
 
 interface CartItemInterface {
   product: CartInterface;
@@ -12,6 +13,7 @@ export const CartItem: React.FunctionComponent<CartItemInterface> = ({
   product,
   onDelete,
 }) => {
+  const { updateQuantity } = useCart();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [productToDelete, setProductToDelete] = useState<{
     id: number;
@@ -27,6 +29,12 @@ export const CartItem: React.FunctionComponent<CartItemInterface> = ({
     if (productToDelete) {
       onDelete(productToDelete.id);
       setProductToDelete(null);
+    }
+  };
+
+  const handleQuantityChange = (newQuantity: number) => {
+    if (newQuantity > 0 && newQuantity <= product.rating.count) {
+      updateQuantity(product.id, newQuantity);
     }
   };
   return (
@@ -50,7 +58,8 @@ export const CartItem: React.FunctionComponent<CartItemInterface> = ({
           <input
             id={`qty-${product.id}`}
             type="number"
-            defaultValue={product.count}
+            value={product.count}
+            onChange={(e) => handleQuantityChange(parseInt(e.target.value) || 1)}
             min="1"
             max={product.rating.count}
             className="border border-gray-300 rounded-md px-2 py-1 w-16 focus:ring-2 focus:ring-primary-400 focus:border-transparent outline-none text-sm"

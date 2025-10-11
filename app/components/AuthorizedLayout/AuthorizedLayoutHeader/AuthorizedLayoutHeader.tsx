@@ -54,11 +54,11 @@ export const AuthorizedLayoutHeader: React.FunctionComponent<
         <div className="flex items-center ml-auto space-x-2 sm:space-x-4">
           <Link
             to={"/cart"}
-            className="relative p-2 rounded-lg hover:bg-orange-200/80 transition-all"
-            aria-label={`Shopping cart${cartAmount ? ` with ${cartAmount} items` : ""}`}
+            className="relative p-2 rounded-lg hover:bg-orange-200/80 transition-all flex items-center justify-center"
+            aria-label={`Shopping cart${cartAmount && cartAmount > 0 ? ` with ${cartAmount} items` : ""}`}
           >
             <Icon.Cart className="h-5 w-5 sm:h-6 sm:w-6" />
-            {cartAmount && cartAmount > 0 && (
+            {cartAmount !== undefined && cartAmount > 0 && (
               <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full flex items-center justify-center min-w-[18px] h-[18px] px-1 shadow-md">
                 {cartAmount > 99 ? '99+' : cartAmount}
               </span>
