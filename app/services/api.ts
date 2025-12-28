@@ -1,14 +1,50 @@
 import { Product, Cart } from "~/types";
 
-const API_BASE_URL = "https://fakestoreapi.com";
+const API_BASE_URL = "https://dummyjson.com";
+
+// Map DummyJSON product to our Product type
+interface DummyJSONProduct {
+  id: number;
+  title: string;
+  description: string;
+  price: number;
+  category: string;
+  thumbnail: string;
+  images: string[];
+  rating: number;
+  stock: number;
+}
+
+function mapProduct(p: DummyJSONProduct): Product {
+  return {
+    id: p.id,
+    title: p.title,
+    description: p.description,
+    price: p.price,
+    category: p.category,
+    image: p.thumbnail,
+    rating: {
+      rate: p.rating,
+      count: p.stock,
+    },
+  };
+}
 
 export class ProductService {
   static async getAll(): Promise<Product[]> {
-    const response = await fetch(`${API_BASE_URL}/products`);
-    if (!response.ok) {
-      throw new Error("Failed to fetch products");
+    try {
+      const response = await fetch(`${API_BASE_URL}/products?limit=20`);
+      if (!response.ok) {
+        throw new Error(`API returned ${response.status}: ${response.statusText}`);
+      }
+      const data = await response.json();
+      return data.products.map(mapProduct);
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new Error(`Failed to fetch products: ${error.message}`);
+      }
+      throw new Error("Failed to fetch products: Unknown error");
     }
-    return response.json();
   }
 
   static async getById(id: string | number): Promise<Product> {
@@ -16,7 +52,8 @@ export class ProductService {
     if (!response.ok) {
       throw new Error(`Failed to fetch product ${id}`);
     }
-    return response.json();
+    const data = await response.json();
+    return mapProduct(data);
   }
 
   static async getByCategory(category: string): Promise<Product[]> {
@@ -26,7 +63,8 @@ export class ProductService {
     if (!response.ok) {
       throw new Error(`Failed to fetch products in category ${category}`);
     }
-    return response.json();
+    const data = await response.json();
+    return data.products.map(mapProduct);
   }
 
   static async getCategories(): Promise<string[]> {
@@ -34,7 +72,9 @@ export class ProductService {
     if (!response.ok) {
       throw new Error("Failed to fetch categories");
     }
-    return response.json();
+    const data = await response.json();
+    // DummyJSON returns categories as objects with slug and name
+    return data.map((cat: { slug: string; name: string }) => cat.slug);
   }
 }
 
@@ -44,7 +84,8 @@ export class CartService {
     if (!response.ok) {
       throw new Error(`Failed to fetch cart for user ${userId}`);
     }
-    return response.json();
+    const data = await response.json();
+    return data.carts || [];
   }
 
   static async getUserProducts(userId: number): Promise<Product[]> {
@@ -54,6 +95,7 @@ export class CartService {
       return [];
     }
 
+    // DummyJSON cart products have 'id', our CartItem type uses 'productId'
     const productPromises = carts[0].products.map((product) =>
       ProductService.getById(product.productId)
     );

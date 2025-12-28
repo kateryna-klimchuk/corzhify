@@ -18,7 +18,8 @@ export const loader = async () => {
     return { products };
   } catch (error) {
     console.error("Failed to load overview data:", error);
-    throw new Response("Failed to load data", { status: 500 });
+    const message = error instanceof Error ? error.message : "Unknown error";
+    throw new Response(`Failed to load data: ${message}`, { status: 500 });
   }
 };
 export default function OverviewPage() {

@@ -1,9 +1,9 @@
 import { useLoaderData, useLocation, useNavigate } from "@remix-run/react";
-import { LoaderFunction, MetaFunction } from "@remix-run/node";
+import { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
 import { AuthorizedLayout } from "~/components/AuthorizedLayout/AuthorizedLayout";
-import { ProductInterface } from "~/components/Product/Interfaces/ProductInterface";
 import { ProductOverview } from "~/components/Product/ProductOverview/ProductOverview";
 import { useCart } from "~/contexts/CartContext";
+import { ProductService } from "~/services/api";
 
 export const meta: MetaFunction = () => {
   return [
@@ -11,17 +11,18 @@ export const meta: MetaFunction = () => {
     { name: "description", content: "Corzhify - Product" },
   ];
 };
-export const loader: LoaderFunction = async ({ params }) => {
+export const loader = async ({ params }: LoaderFunctionArgs) => {
   const productId = params.id;
-  const product: ProductInterface = await fetch(
-    `https://fakestoreapi.com/products/${productId}`
-  ).then((res) => res.json());
-
-  if (!product) {
+  if (!productId) {
+    throw new Response("Product ID not specified", { status: 400 });
+  }
+  try {
+    const product = await ProductService.getById(productId);
+    return { product };
+  } catch (error) {
+    console.error("Failed to load product:", error);
     throw new Response("Product Not Found", { status: 404 });
   }
-
-  return { product };
 };
 
 export default function ProductDetail() {

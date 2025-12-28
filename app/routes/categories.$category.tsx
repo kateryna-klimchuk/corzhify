@@ -4,12 +4,12 @@ import {
   useLocation,
   useNavigate,
 } from "@remix-run/react";
-import { ProductInterface } from "../components/Product/Interfaces/ProductInterface";
 import { AuthorizedLayout } from "../components/AuthorizedLayout/AuthorizedLayout";
 import { LoaderFunctionArgs } from "@remix-run/node";
 import { ProductCard } from "~/components/Product/ProductCard/ProductCard";
 import { TextUtility } from "~/components/Utilities/TextUtility";
 import { useCart } from "~/contexts/CartContext";
+import { ProductService } from "~/services/api";
 
 export const meta: MetaFunction = () => {
   return [
@@ -19,13 +19,16 @@ export const meta: MetaFunction = () => {
 };
 export const loader = async ({ params }: LoaderFunctionArgs) => {
   const category = params.category;
-  const categoryProducts: ProductInterface[] = await fetch(
-    `https://fakestoreapi.com/products/category/${category}`
-  ).then((res) => res.json());
-  if (!categoryProducts) {
+  if (!category) {
+    throw new Response("Category not specified", { status: 400 });
+  }
+  try {
+    const categoryProducts = await ProductService.getByCategory(category);
+    return { categoryProducts };
+  } catch (error) {
+    console.error("Failed to load category products:", error);
     throw new Response("Products Not Found", { status: 404 });
   }
-  return { categoryProducts };
 };
 
 export default function CategoryPage() {
