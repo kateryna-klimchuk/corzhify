@@ -26,10 +26,10 @@ export const Navigation: React.FunctionComponent<NavigationInterface> = ({
           return (
             <li key={index}>
               <NavLink
-                className={`block px-3 sm:py-1 rounded-lg cursor-pointer transition-all duration-200 font-medium ${
+                className={`block px-3 sm:py-1 rounded-lg cursor-pointer transition-all duration-200 font-medium text-slate-700 dark:text-gray-100 ${
                   isActive
-                    ? "bg-orange-200 shadow-sm"
-                    : "hover:bg-orange-200/70"
+                    ? "bg-orange-200 dark:bg-gray-700 shadow-sm"
+                    : "hover:bg-orange-200/70 dark:hover:bg-gray-700"
                 }`}
                 to={item.href}
                 aria-current={isActive ? "page" : undefined}

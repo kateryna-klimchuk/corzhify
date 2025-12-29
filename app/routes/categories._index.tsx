@@ -53,15 +53,15 @@ export const loader = async () => {
 
 function CategoryCard({ category }: { category: CategoryWithImages }) {
   return (
-    <li className="group flex flex-col border rounded-lg border-gray-200 bg-white hover:shadow-card-hover hover:border-primary-300 transition-all duration-300 overflow-hidden">
+    <li className="group flex flex-col border rounded-lg border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:shadow-card-hover hover:border-primary-300 dark:hover:border-primary-500 transition-all duration-300 overflow-hidden">
       <Link to={`/categories/${category.slug}`} className="w-full h-full">
-        <div className="w-full h-40 bg-gray-50 overflow-hidden">
+        <div className="w-full h-40 bg-gray-50 dark:bg-gray-700 overflow-hidden">
           {category.images.length > 0 ? (
             <div className="grid grid-cols-2 grid-rows-2 w-full h-full gap-0.5 p-1">
               {category.images.slice(0, 4).map((image, index) => (
                 <div
                   key={index}
-                  className="bg-white flex items-center justify-center overflow-hidden rounded"
+                  className="bg-white dark:bg-gray-800 flex items-center justify-center overflow-hidden rounded"
                 >
                   <img
                     src={image}
@@ -73,13 +73,13 @@ function CategoryCard({ category }: { category: CategoryWithImages }) {
               ))}
             </div>
           ) : (
-            <div className="w-full h-full flex items-center justify-center text-gray-400">
+            <div className="w-full h-full flex items-center justify-center text-gray-400 dark:text-gray-500">
               No images
             </div>
           )}
         </div>
         <div className="p-4 text-center">
-          <h3 className="text-sm sm:text-base font-semibold text-slate-800">
+          <h3 className="text-sm sm:text-base font-semibold text-slate-800 dark:text-gray-100">
             {category.name}
           </h3>
         </div>

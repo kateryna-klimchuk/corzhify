@@ -27,19 +27,17 @@ export default function OverviewPage() {
   const { getCartItemCount } = useCart();
 
   return (
-    <AuthorizedLayout.Page
-      activePage={""}
-      cartAmount={getCartItemCount()}
-    >
+    <AuthorizedLayout.Page activePage={""} cartAmount={getCartItemCount()}>
       <section>
-        <div className="bg-gradient-to-r from-primary-200 via-orange-200 to-secondary-200 py-12 mb-8 rounded-2xl shadow-lg text-center">
-          <h1 className="text-2xl md:text-5xl font-bold bg-gradient-to-r from-primary-700 to-secondary-600 bg-clip-text text-transparent">
+        {/* Hero section - breaks out of container for full width */}
+        <div className="-mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-primary-200 via-orange-200 to-secondary-200 dark:from-primary-900 dark:via-gray-800 dark:to-secondary-900 py-12 mb-8 text-center">
+          <h1 className="text-2xl md:text-5xl font-bold bg-gradient-to-r from-primary-700 to-secondary-600 dark:from-primary-400 dark:to-secondary-400 bg-clip-text text-transparent">
             Welcome to Corzhify
           </h1>
-          <p className="mt-4 text-base md:text-xl text-slate-700 max-w-2xl mx-auto px-4">
+          <p className="mt-4 text-base md:text-xl text-slate-700 dark:text-gray-300 max-w-2xl mx-auto px-4">
             Find the best products at unbeatable prices!
           </p>
-          <h2 className="text-xl md:text-3xl font-semibold mt-6 text-slate-800">
+          <h2 className="text-xl md:text-3xl font-semibold mt-6 text-slate-800 dark:text-gray-100">
             ✨ Trending Products
           </h2>
         </div>
@@ -65,10 +63,10 @@ export default function OverviewPage() {
           >
             View All Products
           </Link>
-          <span className="text-slate-500">or</span>
+          <span className="text-slate-500 dark:text-gray-400">or</span>
           <Link
             to="/categories"
-            className="px-6 py-3 border border-primary-500 text-primary-600 rounded-lg hover:bg-primary-50 transition-colors font-medium"
+            className="px-6 py-3 border border-primary-500 text-primary-600 dark:text-primary-400 rounded-lg hover:bg-primary-50 dark:hover:bg-gray-800 transition-colors font-medium"
           >
             Browse Categories
           </Link>

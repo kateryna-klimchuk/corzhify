@@ -4,6 +4,8 @@ import { Icon } from "~/components/Icon/Icon";
 import { ProductInterface } from "../Interfaces/ProductInterface";
 import { ProductOverviewRow } from "./ProductOverviewRow/ProductOverviewRow";
 import { useCart } from "~/contexts/CartContext";
+import { useToast } from "~/contexts/ToastContext";
+import { ImageWithFallback } from "~/components/Image/ImageWithFallback";
 
 export interface ProductOverviewInterface {
   product: ProductInterface;
@@ -13,12 +15,14 @@ export const ProductOverview: React.FunctionComponent<
   ProductOverviewInterface
 > = ({ product }) => {
   const { addToCart } = useCart();
+  const { showToast } = useToast();
   const [quantity, setQuantity] = useState(1);
   const [isAdding, setIsAdding] = useState(false);
 
   const handleAddToCart = () => {
     setIsAdding(true);
     addToCart(product.id, quantity);
+    showToast(`Added ${quantity} "${product.title}" to cart`, "success");
     setTimeout(() => {
       setIsAdding(false);
     }, 1000);
@@ -27,11 +31,10 @@ export const ProductOverview: React.FunctionComponent<
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-white border rounded-lg border-gray-200 shadow-card overflow-hidden">
       <div className="w-full h-[400px] md:h-[520px] flex items-center justify-center bg-gray-50 p-4 md:p-8">
-        <img
+        <ImageWithFallback
           src={product.image}
           alt={product.title}
           className="object-contain h-full"
-          loading="lazy"
         />
       </div>
       <div className="flex flex-col p-4 md:p-6">

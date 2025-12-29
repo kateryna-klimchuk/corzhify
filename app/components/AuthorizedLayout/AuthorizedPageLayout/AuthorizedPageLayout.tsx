@@ -47,13 +47,13 @@ export const AuthorizedPageLayout: React.FunctionComponent<
         <div className="pt-[84px] py-2 px-4 sm:px-6 flex gap-4 items-center">
           <button
             type="button"
-            className="flex items-center default-focus-ring rounded disabled:cursor-not-allowed rounder pl-2 py-1 pr-3 hover:bg-orange-100 transition-all"
+            className="flex items-center default-focus-ring rounded disabled:cursor-not-allowed rounder pl-2 py-1 pr-3 hover:bg-orange-100 dark:hover:bg-gray-700 transition-all"
             onClick={backButton.onClick}
           >
-            <Icon.ArrowLeft className="h-5 w-5 text-gray-800" />
-            <p>Back</p>
+            <Icon.ArrowLeft className="h-5 w-5 text-gray-800 dark:text-gray-200" />
+            <p className="dark:text-gray-200">Back</p>
           </button>
-          {subTitle && <p>{subTitle}</p>}
+          {subTitle && <p className="dark:text-gray-300">{subTitle}</p>}
         </div>
       )}
 

@@ -4,6 +4,7 @@ import { DeleteModal } from "~/components/Modal/DeleteModal";
 import { CartInterface } from "~/components/Product/Interfaces/ProductInterface";
 import { NumberUtility } from "~/components/Utilities/NumberUtility";
 import { useCart } from "~/contexts/CartContext";
+import { useToast } from "~/contexts/ToastContext";
 
 interface CartItemInterface {
   product: CartInterface;
@@ -14,6 +15,7 @@ export const CartItem: React.FunctionComponent<CartItemInterface> = ({
   onDelete,
 }) => {
   const { updateQuantity } = useCart();
+  const { showToast } = useToast();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [productToDelete, setProductToDelete] = useState<{
     id: number;
@@ -28,13 +30,29 @@ export const CartItem: React.FunctionComponent<CartItemInterface> = ({
   const confirmDelete = () => {
     if (productToDelete) {
       onDelete(productToDelete.id);
+      showToast(`Removed "${productToDelete.title}" from cart`, "info");
       setProductToDelete(null);
     }
   };
 
-  const handleQuantityChange = (newQuantity: number) => {
-    if (newQuantity > 0 && newQuantity <= product.rating.count) {
+  const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+
+    // Allow empty input for typing
+    if (value === "") {
+      return;
+    }
+
+    const newQuantity = parseInt(value, 10);
+    if (!isNaN(newQuantity) && newQuantity > 0 && newQuantity <= product.rating.count) {
       updateQuantity(product.id, newQuantity);
+    }
+  };
+
+  const handleQuantityBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    if (value === "" || parseInt(value, 10) < 1) {
+      updateQuantity(product.id, 1);
     }
   };
   return (
@@ -59,7 +77,8 @@ export const CartItem: React.FunctionComponent<CartItemInterface> = ({
             id={`qty-${product.id}`}
             type="number"
             value={product.count}
-            onChange={(e) => handleQuantityChange(parseInt(e.target.value) || 1)}
+            onChange={handleQuantityChange}
+            onBlur={handleQuantityBlur}
             min="1"
             max={product.rating.count}
             className="border border-gray-300 rounded-md px-2 py-1 w-16 focus:ring-2 focus:ring-primary-400 focus:border-transparent outline-none text-sm"

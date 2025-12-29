@@ -11,6 +11,9 @@ import { CoinIcon } from "./Icons/CoinIcon";
 import { MenuIcon } from "./Icons/MenuIcon";
 import { CloseIcon } from "./Icons/CloseIcon";
 import { UserIcon } from "./Icons/UserIcon";
+import { SunIcon } from "./Icons/SunIcon";
+import { MoonIcon } from "./Icons/MoonIcon";
+import { HeartIcon } from "./Icons/HeartIcon";
 
 export const Icon = {
   DownArrow: DownArrowIcon,
@@ -26,4 +29,7 @@ export const Icon = {
   Menu: MenuIcon,
   Close: CloseIcon,
   User: UserIcon,
+  Sun: SunIcon,
+  Moon: MoonIcon,
+  Heart: HeartIcon,
 };

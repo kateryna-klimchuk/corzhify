@@ -76,6 +76,27 @@ export class ProductService {
     // DummyJSON returns categories as objects with slug and name
     return data.map((cat: { slug: string; name: string }) => cat.slug);
   }
+
+  static async search(query: string): Promise<Product[]> {
+    if (!query.trim()) {
+      return [];
+    }
+    try {
+      const response = await fetch(
+        `${API_BASE_URL}/products/search?q=${encodeURIComponent(query)}`
+      );
+      if (!response.ok) {
+        throw new Error(`API returned ${response.status}: ${response.statusText}`);
+      }
+      const data = await response.json();
+      return data.products.map(mapProduct);
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new Error(`Failed to search products: ${error.message}`);
+      }
+      throw new Error("Failed to search products: Unknown error");
+    }
+  }
 }
 
 export class CartService {

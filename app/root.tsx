@@ -11,6 +11,10 @@ import {
 
 import stylesheet from "~/tailwind.css?url";
 import { CartProvider } from "~/contexts/CartContext";
+import { AuthProvider } from "~/contexts/AuthContext";
+import { ToastProvider } from "~/contexts/ToastContext";
+import { ThemeProvider } from "~/contexts/ThemeContext";
+import { WishlistProvider } from "~/contexts/WishlistContext";
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: stylesheet },
@@ -25,12 +29,20 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body>
-        <CartProvider>
-          <Outlet />
-          <ScrollRestoration />
-          <Scripts />
-        </CartProvider>
+      <body className="bg-white dark:bg-gray-900 transition-colors">
+        <ThemeProvider>
+          <AuthProvider>
+            <ToastProvider>
+              <WishlistProvider>
+                <CartProvider>
+                  <Outlet />
+                  <ScrollRestoration />
+                  <Scripts />
+                </CartProvider>
+              </WishlistProvider>
+            </ToastProvider>
+          </AuthProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
